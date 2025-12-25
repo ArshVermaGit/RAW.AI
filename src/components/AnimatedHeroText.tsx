@@ -15,7 +15,7 @@ export const AnimatedHeroText = () => {
 
   return (
     <div className="relative">
-      <motion.h1 
+      <motion.h1
         className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tighter"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -27,7 +27,7 @@ export const AnimatedHeroText = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Humanize
+            RAW.AI
           </motion.span>
           {' '}
           <motion.span
@@ -39,7 +39,7 @@ export const AnimatedHeroText = () => {
             AI Text
           </motion.span>
         </span>
-        
+
         <span className="block">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
