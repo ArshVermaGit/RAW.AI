@@ -68,7 +68,7 @@ const slideInRight: Variants = {
 const About = () => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // Parallax scroll effects
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 400], [0, 100]);
@@ -92,35 +92,35 @@ const About = () => {
   return (
     <div ref={containerRef} className="min-h-screen bg-background text-foreground relative overflow-hidden">
       {/* Background Effects */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 bg-grid-pattern opacity-[0.02]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.02 }}
         transition={{ duration: 1 }}
       />
-      <motion.div 
+      <motion.div
         className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
         style={{ y: backgroundY1 }}
-        animate={{ 
+        animate={{
           x: [0, 20, 0],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       />
-      <motion.div 
+      <motion.div
         className="absolute bottom-1/4 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
         style={{ y: backgroundY2 }}
-        animate={{ 
+        animate={{
           x: [0, -20, 0],
         }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
       />
-      <motion.div 
+      <motion.div
         className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/8 rounded-full blur-3xl pointer-events-none"
         style={{ y: useTransform(scrollY, [0, 500], [0, 120]) }}
       />
 
       {/* Header */}
-      <motion.header 
+      <motion.header
         className="relative z-10 p-6 md:p-8"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -152,14 +152,14 @@ const About = () => {
             variants={scaleIn}
             className="relative inline-block mb-8"
           >
-            <motion.div 
+            <motion.div
               className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-primary via-primary/80 to-primary/60 p-1"
               whileHover={{ scale: 1.05, rotate: 5 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
-              <img 
-                src={arshAvatar} 
-                alt="Arsh Verma" 
+              <img
+                src={arshAvatar}
+                alt="Arsh Verma"
                 className="w-full h-full rounded-full object-cover"
               />
             </motion.div>
@@ -169,7 +169,7 @@ const About = () => {
               animate={{ scale: [0, 1.2, 1] }}
               transition={{ delay: 0.5, duration: 0.5 }}
             >
-              <motion.span 
+              <motion.span
                 className="text-xs font-bold text-white"
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ repeat: Infinity, duration: 2 }}
@@ -217,7 +217,7 @@ const About = () => {
               whileTap={{ scale: 0.98 }}
               className="p-6 rounded-2xl border border-border bg-card/50 backdrop-blur-sm text-center group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
             >
-              <motion.div 
+              <motion.div
                 className="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors"
                 whileHover={{ rotate: 10, scale: 1.1 }}
               >
@@ -237,15 +237,15 @@ const About = () => {
           viewport={{ once: true, margin: "-100px" }}
           className="relative p-8 md:p-10 rounded-3xl border border-border bg-card/30 backdrop-blur-sm mb-12 overflow-hidden"
         >
-          <motion.div 
+          <motion.div
             className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           />
-          
-          <motion.div 
+
+          <motion.div
             className="absolute top-0 left-8 -translate-y-1/2 px-4 py-1 bg-background border border-border rounded-full"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -255,7 +255,7 @@ const About = () => {
             <span className="text-sm font-medium text-primary">About Me</span>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="space-y-6 text-lg leading-relaxed text-muted-foreground relative z-10"
             variants={staggerContainer}
             initial="hidden"
@@ -290,7 +290,7 @@ const About = () => {
           viewport={{ once: true, margin: "-50px" }}
           className="text-center"
         >
-          <motion.h3 
+          <motion.h3
             className="text-lg font-semibold mb-6"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -298,7 +298,7 @@ const About = () => {
           >
             Let's Connect
           </motion.h3>
-          <motion.div 
+          <motion.div
             className="flex flex-wrap justify-center gap-4"
             variants={staggerContainer}
             initial="hidden"
@@ -332,7 +332,7 @@ const About = () => {
           className="text-center mt-16"
         >
           <MagneticButton variant="primary" size="lg" onClick={() => navigate('/')}>
-            Try Humanizer.ai
+            Try RAW.AI
           </MagneticButton>
         </motion.div>
       </main>
