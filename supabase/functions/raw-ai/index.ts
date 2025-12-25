@@ -130,21 +130,20 @@ serve(async (req: Request) => {
       });
     }
 
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
+    const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+    if (!OPENAI_API_KEY) {
+      throw new Error("OPENAI_API_KEY is not configured");
     }
 
     // Model selection based on plan
-    let selectedModel = "google/gemini-2.5-flash"; // default
+    let selectedModel = "gpt-4o-mini"; // default
     if (model && userPlan !== 'free') {
       const allowedModels = [
-        "google/gemini-2.5-flash",
-        "google/gemini-2.5-pro",
-        "openai/gpt-5-mini",
+        "gpt-4o-mini",
+        "gpt-4o",
       ];
       if (userPlan === 'ultra') {
-        allowedModels.push("openai/gpt-5", "google/gemini-2.5-flash-lite");
+        allowedModels.push("gpt-4-turbo");
       }
       if (allowedModels.includes(model)) {
         selectedModel = model;
@@ -186,10 +185,10 @@ IMPORTANT RULES:
 
     console.log(`Humanizing text with level: ${level}, style: ${style}, model: ${selectedModel}, words: ${wordsCount}`);
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
