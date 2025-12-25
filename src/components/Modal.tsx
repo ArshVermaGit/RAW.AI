@@ -36,7 +36,7 @@ export const Modal = ({ isOpen, onClose, children, title, className }: ModalProp
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -44,21 +44,20 @@ export const Modal = ({ isOpen, onClose, children, title, className }: ModalProp
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-background/90 backdrop-blur-md"
+            className="fixed inset-0 bg-background/90 backdrop-blur-md"
           />
-          
-          {/* Modal */}
+
+          {/* Modal Container */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ 
-              duration: 0.3, 
-              ease: [0.16, 1, 0.3, 1] 
+            transition={{
+              duration: 0.3,
+              ease: [0.16, 1, 0.3, 1]
             }}
             className={cn(
-              "fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2",
-              "w-[calc(100%-2rem)] max-w-xl max-h-[90vh] overflow-auto",
+              "relative z-[101] w-full max-w-xl max-h-[90vh] overflow-auto",
               "rounded-3xl bg-card border border-border/50 shadow-2xl",
               "scrollbar-hide",
               className
@@ -66,7 +65,7 @@ export const Modal = ({ isOpen, onClose, children, title, className }: ModalProp
           >
             {/* Glow effect */}
             <div className="absolute -inset-px rounded-3xl bg-gradient-to-b from-foreground/10 to-transparent pointer-events-none" />
-            
+
             {/* Close button */}
             <button
               onClick={onClose}
@@ -83,7 +82,7 @@ export const Modal = ({ isOpen, onClose, children, title, className }: ModalProp
               {children}
             </div>
           </motion.div>
-        </>
+        </div>
       )}
     </AnimatePresence>
   );
