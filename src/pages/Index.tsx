@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import {
   Copy, Check, Sparkles, ArrowRight, Zap, Shield, Brain,
   Wand2, Globe, Target, Award, Menu, X, ClipboardPaste,
-  Play, Rocket, Star, ChevronDown, Eye, FileText, Lock, Crown, LogOut, User, Settings
+  Play, Rocket, Star, ChevronDown, Eye, FileText, Lock, Crown, LogOut, User, Settings, LucideIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -28,6 +28,24 @@ import { supabase } from '@/integrations/supabase/client';
 type Level = 'lite' | 'pro' | 'ultra';
 type SubscribedPlan = 'free' | 'pro' | 'ultra';
 
+interface Feature {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  details: string;
+}
+
+interface Plan {
+  name: string;
+  price: string;
+  originalPrice?: string;
+  description: string;
+  features: string[];
+  cta: string;
+  popular: boolean;
+  planId: 'free' | 'pro' | 'ultra';
+}
+
 const Index = () => {
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
@@ -39,8 +57,8 @@ const Index = () => {
   const [selectedModel, setSelectedModel] = useState<AIModel>('google/gemini-2.5-flash');
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [featureModal, setFeatureModal] = useState<{ open: boolean; feature: any }>({ open: false, feature: null });
-  const [pricingModal, setPricingModal] = useState<{ open: boolean; plan: any }>({ open: false, plan: null });
+  const [featureModal, setFeatureModal] = useState<{ open: boolean; feature: Feature | null }>({ open: false, feature: null });
+  const [pricingModal, setPricingModal] = useState<{ open: boolean; plan: Plan | null }>({ open: false, plan: null });
   const [upgradeModal, setUpgradeModal] = useState<{ open: boolean; plan: 'pro' | 'ultra' }>({ open: false, plan: 'pro' });
 
   const { user, profile, signOut, refreshProfile, session } = useAuth();
