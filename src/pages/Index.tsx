@@ -24,6 +24,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useUsage } from '@/hooks/useUsage';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
+import { AIDetector } from '@/components/AIDetector';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 type Level = 'lite' | 'pro' | 'ultra';
 type SubscribedPlan = 'free' | 'pro' | 'ultra';
@@ -531,9 +533,31 @@ const Index = () => {
         </motion.div>
       </section>
 
-      {/* Converter Section */}
+      {/* Tool Hub Section */}
       <section id="converter" className="pb-20 px-6 relative z-10">
         <div className="container mx-auto max-w-5xl">
+          {/* Tabs */}
+          <Tabs defaultValue="humanizer" className="w-full">
+            <div className="flex justify-center mb-8">
+              <TabsList className="bg-secondary/40 backdrop-blur-xl border border-border/50 p-1.5 rounded-full h-14 w-full max-w-[400px]">
+                <TabsTrigger 
+                  value="humanizer" 
+                  className="rounded-full flex-1 h-full font-semibold text-sm data-[state=active]:bg-foreground data-[state=active]:text-background transition-all duration-300"
+                >
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  Humanizer
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="detector" 
+                  className="rounded-full flex-1 h-full font-semibold text-sm data-[state=active]:bg-foreground data-[state=active]:text-background transition-all duration-300"
+                >
+                  <Shield className="w-4 h-4 mr-2" />
+                  AI Detector
+                </TabsTrigger>
+              </TabsList>
+            </div>
+
+            <TabsContent value="humanizer" className="focus-visible:ring-0 focus-visible:outline-none">
           <motion.div
             className="relative rounded-3xl overflow-hidden"
             initial={{ opacity: 0, y: 40 }}
@@ -558,32 +582,48 @@ const Index = () => {
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-4 lg:p-6 border-b border-border/30 bg-secondary/20">
                 <div className="flex flex-wrap items-center gap-3">
                   <span className="text-sm font-medium text-muted-foreground">Level:</span>
-                  {(['lite', 'pro', 'ultra'] as Level[]).map((l) => {
-                    const isLocked = (l === 'pro' && subscribedPlan === 'free') ||
-                      (l === 'ultra' && subscribedPlan !== 'ultra');
-                    return (
-                      <motion.button
-                        key={l}
-                        onClick={() => {
-                          if (isLocked) {
-                            setUpgradeModal({ open: true, plan: l as 'pro' | 'ultra' });
-                          } else {
-                            setLevel(l);
-                          }
-                        }}
-                        className={cn("level-chip", level === l && "active")}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        {l === 'lite' && <Zap className="w-3.5 h-3.5" />}
-                        {l === 'pro' && <Sparkles className="w-3.5 h-3.5" />}
-                        {l === 'ultra' && <Rocket className="w-3.5 h-3.5" />}
-                        <span className="capitalize">{l}</span>
-                        {isLocked && <Lock className="w-3 h-3 opacity-50" />}
-                        {!isLocked && l !== 'lite' && <Crown className="w-3 h-3 text-yellow-500" />}
-                      </motion.button>
-                    );
-                  })}
+                  <div className="flex flex-wrap items-center gap-2 p-1 bg-background/40 backdrop-blur-md rounded-full border border-border/40">
+                    {(['lite', 'pro', 'ultra'] as Level[]).map((l) => {
+                      const isLocked = (l === 'pro' && subscribedPlan === 'free') ||
+                        (l === 'ultra' && subscribedPlan !== 'ultra');
+                      const isActive = level === l;
+                      return (
+                        <motion.button
+                          key={l}
+                          onClick={() => {
+                            if (isLocked) {
+                              setUpgradeModal({ open: true, plan: l as 'pro' | 'ultra' });
+                            } else {
+                              setLevel(l);
+                            }
+                          }}
+                          className={cn(
+                            "relative flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all duration-500",
+                            isActive ? "text-background" : "text-muted-foreground hover:text-foreground hover:bg-foreground/5",
+                            isLocked && "opacity-60"
+                          )}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {isActive && (
+                            <motion.div
+                              layoutId="level-bg"
+                              className="absolute inset-0 bg-foreground rounded-full shadow-lg shadow-foreground/20"
+                              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                            />
+                          )}
+                          <span className="relative z-10 flex items-center gap-2">
+                            {l === 'lite' && <Zap className="w-3.5 h-3.5" />}
+                            {l === 'pro' && <Sparkles className="w-3.5 h-3.5" />}
+                            {l === 'ultra' && <Rocket className="w-3.5 h-3.5" />}
+                            <span className="capitalize">{l}</span>
+                            {isLocked && <Lock className="w-3 h-3 opacity-50" />}
+                            {!isLocked && l !== 'lite' && <Crown className="w-3 h-3 text-yellow-500" />}
+                          </span>
+                        </motion.button>
+                      );
+                    })}
+                  </div>
                 </div>
                 <div className="flex items-center gap-4">
                   {/* Model selector toggle (only for paid users) */}
@@ -644,17 +684,20 @@ const Index = () => {
                   <AnimatePresence>
                     {!inputText && (
                       <motion.div
-                        className="absolute inset-0 top-[57px] flex flex-col items-center justify-center gap-4 pointer-events-none"
+                        className="absolute inset-0 top-[57px] flex flex-col items-center justify-center gap-6 pointer-events-none"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                       >
-                        <div className="pointer-events-auto flex flex-col sm:flex-row gap-3">
-                          <MagneticButton variant="secondary" onClick={handlePaste}>
+                        <div className="w-16 h-16 rounded-2xl bg-secondary/30 flex items-center justify-center text-muted-foreground/50">
+                          <ClipboardPaste className="w-8 h-8" />
+                        </div>
+                        <div className="pointer-events-auto flex flex-col sm:flex-row gap-4">
+                          <MagneticButton variant="secondary" size="lg" onClick={handlePaste} className="bg-background shadow-md">
                             <ClipboardPaste className="w-4 h-4" />
                             Paste Text
                           </MagneticButton>
-                          <MagneticButton variant="secondary" onClick={handleTrySample}>
+                          <MagneticButton variant="ghost" size="lg" onClick={handleTrySample} className="hover:bg-secondary">
                             <Play className="w-4 h-4" />
                             Try Sample
                           </MagneticButton>
@@ -710,13 +753,15 @@ const Index = () => {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                         >
-                          <p className="text-base leading-relaxed whitespace-pre-wrap">{outputText}</p>
-                          <div className="mt-6 pt-4 border-t border-border/30 space-y-4">
-                            <ScoreDisplay
-                              score={Number(humanScore) || 0}
-                              label="Human Score"
-                              variant={typeof humanScore === 'number' && humanScore >= 90 ? "success" : typeof humanScore === 'number' && humanScore >= 70 ? "warning" : "danger"}
-                            />
+                          <p className="text-base lg:text-lg leading-relaxed whitespace-pre-wrap font-medium text-foreground/90">{outputText}</p>
+                          <div className="mt-8 pt-6 border-t border-border/30 space-y-6">
+                            <div className="p-4 rounded-2xl bg-background/50 border border-border/50">
+                              <ScoreDisplay
+                                score={Number(humanScore) || 0}
+                                label="Human Content Score"
+                                variant={typeof humanScore === 'number' && humanScore >= 90 ? "success" : typeof humanScore === 'number' && humanScore >= 70 ? "warning" : "danger"}
+                              />
+                            </div>
                             {improvements.length > 0 && (
                               <motion.div
                                 initial={{ opacity: 0, y: 10 }}
@@ -795,6 +840,18 @@ const Index = () => {
               </div>
             </div>
           </motion.div>
+            </TabsContent>
+
+            <TabsContent value="detector" className="focus-visible:ring-0 focus-visible:outline-none">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <AIDetector />
+              </motion.div>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
