@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Copy, Check, Sparkles, ArrowRight, Zap, Shield, Brain,
   Wand2, Globe, Target, Award, Menu, X, ClipboardPaste,
-  Play, Rocket, Star, ChevronDown, Eye, FileText, Lock, Crown, LogOut, User, Settings, LucideIcon
+  Play, Rocket, Star, ChevronDown, Eye, FileText, Lock, Crown, LogOut, User, Settings, LucideIcon, Trash2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -59,6 +59,8 @@ const Index = () => {
   const [selectedModel, setSelectedModel] = useState<AIModel>('google/gemini-2.5-flash');
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loadingStep, setLoadingStep] = useState(0);
+  const loadingSteps = ['Analyzing context...', 'Rewriting sentences...', 'Matching tone...', 'Finalizing prose...'];
   const [featureModal, setFeatureModal] = useState<{ open: boolean; feature: Feature | null }>({ open: false, feature: null });
   const [pricingModal, setPricingModal] = useState<{ open: boolean; plan: Plan | null }>({ open: false, plan: null });
   
@@ -147,7 +149,16 @@ const Index = () => {
     }
 
     setIsLoading(true);
+    setLoadingStep(0);
+    
+    // Animate loading steps
+    const stepInterval = setInterval(() => {
+      setLoadingStep(prev => (prev < loadingSteps.length - 1 ? prev + 1 : prev));
+    }, 1200);
 
+    // Ensure interval is cleared on cleanup
+    const cleanup = () => clearInterval(stepInterval);
+    
     try {
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
@@ -201,11 +212,6 @@ const Index = () => {
       // Refetch usage after successful humanization
       refetchUsage();
 
-      toast({
-        title: "✨ Text Humanized!",
-        description: `Human score: ${data.humanScore}% - Your text now sounds natural.`,
-      });
-
       // Show feedback modal for first usage
       const hasShownFeedback = localStorage.getItem('hasShownHumanizerFeedback');
       if (!hasShownFeedback) {
@@ -214,6 +220,11 @@ const Index = () => {
           message: 'Your content has been perfectly humanized. Enjoy your publication-ready text!'
         });
         localStorage.setItem('hasShownHumanizerFeedback', 'true');
+      } else {
+        toast({
+          title: "✨ Text Humanized!",
+          description: `Human score: ${data.humanScore}% - Your text now sounds natural.`,
+        });
       }
     } catch (error) {
       console.error('Humanization error:', error);
@@ -224,6 +235,8 @@ const Index = () => {
       });
     } finally {
       setIsLoading(false);
+      setLoadingStep(0);
+      clearInterval(stepInterval);
     }
   };
 
@@ -575,8 +588,25 @@ const Index = () => {
                         <span className="hidden sm:inline">Model</span>
                       </Button>
                     )}
-                    <div className="text-sm text-muted-foreground">
-                      <span className="font-medium">{wordCountIn}</span> words · <span className="font-medium">{charCountIn}</span> chars
+                    <div className="flex items-center gap-6">
+                      <div className="flex items-center gap-2">
+                        <div className="relative w-10 h-10 flex items-center justify-center">
+                          <svg className="w-full h-full -rotate-90">
+                            <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" strokeWidth="3" className="text-secondary/30" />
+                            <motion.circle 
+                              cx="20" cy="20" r="16" fill="none" stroke="currentColor" strokeWidth="3" 
+                              className={cn("text-foreground", wordCountIn > 1500 && "text-destructive")}
+                              initial={{ strokeDasharray: "100 100", strokeDashoffset: 100 }}
+                              animate={{ strokeDashoffset: 100 - Math.min((wordCountIn / 2000) * 100, 100) }}
+                            />
+                          </svg>
+                          <span className="absolute text-[10px] font-bold">{Math.round((wordCountIn / 2000) * 100)}%</span>
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-xs font-bold text-foreground">{wordCountIn} words</span>
+                          <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Input size</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -593,40 +623,40 @@ const Index = () => {
 
                 <div className="grid lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-border/30">
                   <div className="relative flex flex-col min-h-[350px]">
-                    <div className="flex items-center justify-between p-4 border-b border-border/30">
-                      <div className="flex items-center gap-2">
-                        <FileText className="w-4 h-4 text-muted-foreground" />
-                        <span className="text-sm font-semibold">AI Text</span>
+                      <div className="flex items-center justify-between p-4 border-b border-border/30">
+                        <div className="flex items-center gap-2">
+                          <FileText className="w-4 h-4 text-muted-foreground" />
+                          <span className="text-sm font-semibold tracking-tight">AI Generated Text</span>
+                        </div>
+                        {inputText && (
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            onClick={() => { setInputText(''); setOutputText(''); setHumanScore(null); }} 
+                            className="h-8 gap-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all rounded-full"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            Clear
+                          </Button>
+                        )}
                       </div>
-                    </div>
                     <Textarea
                       value={inputText}
-                      onChange={(e) => {
-                        if (!user) {
-                          openModal('auth-required', { onConfirm: () => navigate('/auth') });
-                          return;
-                        }
-                        setInputText(e.target.value);
-                      }}
-                      onFocus={() => {
-                        if (!user) {
-                          openModal('auth-required', { onConfirm: () => navigate('/auth') });
-                        }
-                      }}
+                      onChange={(e) => setInputText(e.target.value)}
                       placeholder="Enter your AI-generated text here..."
-                      className="flex-1 border-0 rounded-none bg-transparent resize-none focus:ring-0 text-base"
+                      className="flex-1 border-0 rounded-none bg-transparent resize-none focus:ring-0 text-base p-6 placeholder:opacity-30"
                     />
                     {!inputText && (
-                      <div className="absolute inset-0 top-[57px] flex flex-col items-center justify-center gap-6">
-                        <div className="w-16 h-16 rounded-2xl bg-secondary/30 flex items-center justify-center text-muted-foreground/50">
+                      <div className="absolute inset-0 top-[57px] flex flex-col items-center justify-center gap-6 pointer-events-none">
+                        <div className="w-16 h-16 rounded-3xl bg-secondary/50 flex items-center justify-center text-muted-foreground/20">
                           <ClipboardPaste className="w-8 h-8" />
                         </div>
-                        <div className="flex flex-col sm:flex-row gap-4">
+                        <div className="flex flex-col sm:flex-row gap-4 pointer-events-auto">
                           <MagneticButton 
                             variant="secondary" 
                             size="lg" 
-                            onClick={user ? handlePaste : () => openModal('auth-required', { onConfirm: () => navigate('/auth') })} 
-                            className="bg-background shadow-md"
+                            onClick={handlePaste} 
+                            className="bg-background shadow-md border-border/10"
                           >
                             <ClipboardPaste className="w-4 h-4" />
                             Paste Text
@@ -634,8 +664,8 @@ const Index = () => {
                           <MagneticButton 
                             variant="ghost" 
                             size="lg" 
-                            onClick={user ? handleTrySample : () => openModal('auth-required', { onConfirm: () => navigate('/auth') })} 
-                            className="hover:bg-secondary"
+                            onClick={handleTrySample} 
+                            className="hover:bg-secondary/80"
                           >
                             <Play className="w-4 h-4" />
                             Try Sample
@@ -646,25 +676,59 @@ const Index = () => {
                   </div>
 
                   <div className="relative flex flex-col min-h-[350px] bg-secondary/10">
-                    <div className="flex items-center justify-between p-4 border-b border-border/30">
-                      <div className="flex items-center gap-2">
-                        <Wand2 className="w-4 h-4 text-muted-foreground" />
-                        <span className="text-sm font-semibold">Human Text</span>
+                      <div className="flex items-center justify-between p-4 border-b border-border/30">
+                        <div className="flex items-center gap-2">
+                          <Brain className="w-4 h-4 text-muted-foreground" />
+                          <span className="text-sm font-semibold tracking-tight">Humanized Result</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button variant="ghost" size="sm" onClick={handleCopy} disabled={!outputText} className="gap-2 h-8 rounded-full bg-background/50 border border-border/30">
+                            {copied ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
+                            <span className="text-xs font-bold">{copied ? 'Copied!' : 'Copy'}</span>
+                          </Button>
+                        </div>
                       </div>
-                      <Button variant="ghost" size="sm" onClick={handleCopy} disabled={!outputText} className="gap-2 h-8 rounded-full">
-                        {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        {copied ? 'Copied!' : 'Copy'}
-                      </Button>
-                    </div>
                     <div className="flex-1 p-6">
                       {isLoading ? (
-                        <div className="flex flex-col items-center justify-center h-full gap-4">
-                          <div className="w-16 h-16 rounded-full border-2 border-foreground/20 animate-spin" />
-                          <p className="text-sm text-muted-foreground">Humanizing your text...</p>
+                        <div className="flex flex-col items-center justify-center h-full gap-6">
+                          <div className="relative">
+                            <div className="w-20 h-20 rounded-full border-2 border-foreground/5" />
+                            <motion.div 
+                              className="absolute inset-0 rounded-full border-t-2 border-foreground"
+                              animate={{ rotate: 360 }}
+                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <Sparkles className="w-6 h-6 text-foreground animate-pulse" />
+                            </div>
+                          </div>
+                          <div className="text-center space-y-2">
+                            <motion.p 
+                              key={loadingStep}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="text-sm font-bold tracking-tight text-foreground"
+                            >
+                              {loadingSteps[loadingStep]}
+                            </motion.p>
+                            <p className="text-xs text-muted-foreground font-medium">Using {level.toUpperCase()} mode</p>
+                          </div>
+                          <div className="w-48 h-1 bg-secondary rounded-full overflow-hidden">
+                            <motion.div 
+                              className="h-full bg-foreground"
+                              initial={{ width: "0%" }}
+                              animate={{ width: `${(loadingStep + 1) / loadingSteps.length * 100}%` }}
+                              transition={{ duration: 1.2 }}
+                            />
+                          </div>
                         </div>
                       ) : outputText ? (
-                        <div>
-                          <p className="text-base lg:text-lg leading-relaxed whitespace-pre-wrap font-medium text-foreground/90">{outputText}</p>
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="h-full flex flex-col"
+                        >
+                          <p className="text-base lg:text-lg leading-relaxed whitespace-pre-wrap font-medium text-foreground/90 flex-1">{outputText}</p>
                           <div className="mt-8 pt-6 border-t border-border/30 space-y-6">
                             <div className="p-4 rounded-2xl bg-background/50 border border-border/50">
                               <ScoreDisplay
@@ -687,7 +751,7 @@ const Index = () => {
                               </div>
                             )}
                           </div>
-                        </div>
+                        </motion.div>
                       ) : (
                         <div className="flex flex-col items-center justify-center h-full text-center">
                           <div className="w-20 h-20 rounded-2xl bg-secondary/50 flex items-center justify-center mb-4">
@@ -710,7 +774,7 @@ const Index = () => {
                     <MagneticButton 
                       size="xl" 
                       onClick={handleHumanize} 
-                      disabled={isLoading || !inputText.trim() || (user && remaining <= 0)} 
+                      disabled={isLoading || (user && remaining <= 0)} 
                       className={cn(
                         "w-full sm:w-auto min-w-[220px]",
                         user && remaining <= 0 && "opacity-50 grayscale cursor-not-allowed"
@@ -718,9 +782,9 @@ const Index = () => {
                     >
                       {isLoading ? "Processing..." : (
                         <>
-                          <Sparkles className="w-5 h-5" />
-                          {user && remaining <= 0 ? "Limit Reached" : "Humanize Text"}
-                          <ArrowRight className="w-4 h-4" />
+                          {!user ? <Lock className="w-4 h-4 mr-2" /> : <Sparkles className="w-4 h-4 mr-2" />}
+                          {!user ? "Sign in to Humanize" : (user && remaining <= 0 ? "Limit Reached" : "Humanize Text")}
+                          {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
                         </>
                       )}
                     </MagneticButton>
