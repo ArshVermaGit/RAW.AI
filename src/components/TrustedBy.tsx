@@ -16,7 +16,7 @@ export const TrustedBy = () => {
     <section className="py-12 border-y border-border bg-secondary/30">
       <div className="container mx-auto mb-6">
         <p className="text-center text-sm text-muted-foreground font-medium">
-          Bypasses All Major AI Detectors
+          Made to work everywhere
         </p>
       </div>
       
