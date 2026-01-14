@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface ScoreDisplayProps {
@@ -37,23 +36,14 @@ export const ScoreDisplay = ({ score, label, variant = 'success', className }: S
         )}>
           {label}
         </span>
-        <motion.span 
-          className={cn("text-2xl font-bold", colors[variant].text)}
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 200, damping: 10 }}
-        >
+        <span className={cn("text-2xl font-bold transition-all duration-500", colors[variant].text)}>
           {score}%
-        </motion.span>
+        </span>
       </div>
-      <div className="score-bar">
-        <motion.div 
-          className={cn("score-bar-fill", colors[variant].bar)}
-          initial={{ width: 0 }}
-          whileInView={{ width: `${score}%` }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+      <div className="score-bar h-2 bg-secondary/30 rounded-full overflow-hidden">
+        <div 
+          className={cn("h-full transition-all duration-1000 ease-out", colors[variant].bar)}
+          style={{ width: `${score}%` }}
         />
       </div>
     </div>
