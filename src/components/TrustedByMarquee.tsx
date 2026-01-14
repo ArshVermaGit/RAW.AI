@@ -26,7 +26,7 @@ export const TrustedByMarquee = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Bypasses All Major AI Detectors
+          Built to feel human
         </motion.p>
       </div>
       
