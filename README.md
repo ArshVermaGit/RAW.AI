@@ -55,8 +55,8 @@ with usage tracking
 <td width="33%" align="center">
 <img src="https://cdn-icons-png.flaticon.com/512/2354/2354573.png" width="50"/><br/>
 <b>🔐 Secure Auth</b><br/>
-Email/Password<br/>
-+ Google OAuth
+Google Sign-In<br/>
+exclusive access
 </td>
 <td width="33%" align="center">
 <img src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png" width="50"/><br/>
@@ -80,12 +80,15 @@ Built with React, Vite<br/>
 <div align="center">
 
 ### Frontend
+
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Tailwind](https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Framer](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 
 ### Backend
+
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white) ![Deno](https://img.shields.io/badge/Deno-000000?style=for-the-badge&logo=deno&logoColor=white)
 
 ### Services
+
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) ![Razorpay](https://img.shields.io/badge/Razorpay-02042B?style=for-the-badge&logo=razorpay&logoColor=3395FF)
 
 </div>
@@ -141,11 +144,11 @@ graph LR
 
 ## 🎯 Usage Modes
 
-| Mode | Processing Time | Word Limit | Detection Score | Best For |
-|------|----------------|------------|-----------------|----------|
-| **🌟 Lite** | ~2s | 1,000 | 85-90% human | Quick edits, emails |
-| **💎 Pro** | ~4s | 2,500 | 93-96% human | Articles, reports |
-| **🚀 Ultra** | ~6s | 5,000 | 98-99% human | Academic papers |
+| Mode         | Processing Time | Word Limit | Detection Score | Best For            |
+| ------------ | --------------- | ---------- | --------------- | ------------------- |
+| **🌟 Lite**  | ~2s             | 1,000      | 85-90% human    | Quick edits, emails |
+| **💎 Pro**   | ~4s             | 2,500      | 93-96% human    | Articles, reports   |
+| **🚀 Ultra** | ~6s             | 5,000      | 98-99% human    | Academic papers     |
 
 ---
 
@@ -154,7 +157,7 @@ graph LR
 - [x] Core humanization engine
 - [x] Three-tier processing (Lite/Pro/Ultra)
 - [x] Razorpay subscription management
-- [x] Google OAuth + Email auth
+- [x] Google OAuth exclusive access
 
 ---
 
