@@ -67,8 +67,8 @@ interface UpgradeModalProps {
 const planDetails = {
   pro: {
     name: 'Pro',
-    price: '$25',
-    priceNum: 25,
+    price: '$5',
+    priceNum: 5,
     icon: Sparkles,
     color: 'text-blue-500',
     bgColor: 'bg-blue-500/10',
@@ -83,8 +83,8 @@ const planDetails = {
   },
   ultra: {
     name: 'Ultra',
-    price: '$50',
-    priceNum: 50,
+    price: '$10',
+    priceNum: 10,
     icon: Rocket,
     color: 'text-purple-500',
     bgColor: 'bg-purple-500/10',
