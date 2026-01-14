@@ -13,7 +13,7 @@ export const ModalContainer = () => {
       <FeedbackModal
         isOpen={modalState.isOpen && !isUpgradePlan}
         onClose={closeModal}
-        type={modalState.type as 'login-success' | 'login-error' | 'signup-success' | 'forgot-sent' | 'reset-success' | 'payment-success' | 'payment-failed' | 'limit-reached' | 'auth-required' | 'generic-success' | 'generic-error'}
+        type={modalState.type}
         title={modalState.title}
         message={modalState.message}
         onConfirm={modalState.onConfirm}
