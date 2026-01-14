@@ -166,7 +166,8 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
       if (!orderResponse.ok) {
         const error = await orderResponse.json();
         console.error('Order creation error:', error);
-        openModal('order-failed');
+        onClose(); // Close the upgrade modal first
+        setTimeout(() => openModal('order-failed'), 100);
         setIsLoading(false);
         return;
       }
@@ -184,6 +185,8 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
         order_id: orderData.orderId,
         handler: async (response: RazorpayPaymentResponse) => {
           console.log('Payment successful:', response);
+          onClose(); // Close the upgrade modal immediately
+          openModal('payment-verifying');
 
           // Verify payment
           try {
@@ -232,7 +235,8 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
         modal: {
           ondismiss: () => {
             setIsLoading(false);
-            openModal('payment-canceled');
+            onClose(); // Close upgrade modal
+            setTimeout(() => openModal('payment-canceled'), 100);
           },
         },
       };
@@ -240,17 +244,21 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
       const razorpay = new window.Razorpay(options);
       razorpay.on('payment.failed', (response: RazorpayFailureResponse) => {
         console.error('Payment failed:', response.error);
-        openModal('payment-failed');
+        onClose(); // Close upgrade modal
+        setTimeout(() => openModal('payment-failed'), 100);
         setIsLoading(false);
       });
 
       razorpay.open();
     } catch (error) {
       console.error('Payment error:', error);
-      openModal('generic-error', {
-        title: 'Initialization Failed',
-        message: error instanceof Error ? error.message : 'Failed to initialize payment gateway.'
-      });
+      onClose(); // Close upgrade modal
+      setTimeout(() => {
+        openModal('generic-error', {
+          title: 'Initialization Failed',
+          message: error instanceof Error ? error.message : 'Failed to initialize payment gateway.'
+        });
+      }, 100);
       setIsLoading(false);
     }
   };
