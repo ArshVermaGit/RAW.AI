@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 export type ModalType = 
@@ -5,6 +6,9 @@ export type ModalType =
   | 'pricing-ultra' 
   | 'payment-success' 
   | 'payment-failed' 
+  | 'payment-canceled'
+  | 'payment-verification-failed'
+  | 'order-failed'
   | 'limit-reached' 
   | 'auth-required' 
   | 'logout-confirm'
