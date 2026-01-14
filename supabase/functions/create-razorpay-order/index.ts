@@ -51,8 +51,8 @@ serve(async (req: Request) => {
 
     // Define pricing (in smallest currency unit - cents for USD)
     const pricing = {
-      pro: 2500, // $25.00
-      ultra: 5000, // $50.00
+      pro: 500, // $5.00
+      ultra: 1000, // $10.00
     };
 
     const amount = pricing[plan];
