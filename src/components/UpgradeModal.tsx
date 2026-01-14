@@ -6,6 +6,7 @@ import { MagneticButton } from '@/components/MagneticButton';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { useModals } from '@/hooks/use-modals';
 import { cn } from '@/lib/utils';
 
 interface RazorpayOptions {
@@ -105,6 +106,7 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { openModal } = useModals();
   const details = planDetails[plan];
   const Icon = details.icon;
 
@@ -209,12 +211,12 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
             // Refresh user profile to get updated plan
             await refreshProfile();
 
-            toast({
-              title: '🎉 Payment Successful!',
-              description: `You are now subscribed to the ${details.name} plan.`,
+            openModal('payment-success', {
+              onConfirm: () => {
+                onSuccess(plan);
+                onClose();
+              }
             });
-            onSuccess(plan);
-            onClose();
           } catch (error) {
             console.error('Verification error:', error);
             toast({
@@ -240,11 +242,7 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
       const razorpay = new window.Razorpay(options);
       razorpay.on('payment.failed', (response: RazorpayFailureResponse) => {
         console.error('Payment failed:', response.error);
-        toast({
-          title: 'Payment Failed',
-          description: response.error.description || 'Something went wrong. Please try again.',
-          variant: 'destructive',
-        });
+        openModal('payment-failed');
         setIsLoading(false);
       });
 
