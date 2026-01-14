@@ -144,11 +144,11 @@ graph LR
 
 ## 🎯 Usage Modes
 
-| Mode         | Processing Time | Word Limit | Detection Score | Best For            |
-| ------------ | --------------- | ---------- | --------------- | ------------------- |
-| **🌟 Lite**  | ~2s             | 1,000      | 85-90% human    | Quick edits, emails |
-| **💎 Pro**   | ~4s             | 2,500      | 93-96% human    | Articles, reports   |
-| **🚀 Ultra** | ~6s             | 5,000      | 98-99% human    | Academic papers     |
+| Mode               | Processing Time | Word Limit | Detection Score | Best For            |
+| ------------------ | --------------- | ---------- | --------------- | ------------------- |
+| **🌟 Lite**        | ~2s             | 1,000      | 85-90% human    | Quick edits, emails |
+| **💎 Pro ($5)**    | ~4s             | 50,000     | 93-96% human    | Articles, reports   |
+| **🚀 Ultra ($10)** | ~6s             | Unlimited  | 98-99% human    | Academic papers     |
 
 ---
 
