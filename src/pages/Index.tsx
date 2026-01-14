@@ -60,7 +60,7 @@ const Index = () => {
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loadingStep, setLoadingStep] = useState(0);
-  const loadingSteps = ['Analyzing context...', 'Rewriting sentences...', 'Matching tone...', 'Finalizing prose...'];
+  const loadingSteps = ['Reading your text...', 'Making it smooth...', 'Adding a human touch...', 'Almost there...'];
   const [featureModal, setFeatureModal] = useState<{ open: boolean; feature: Feature | null }>({ open: false, feature: null });
   const [pricingModal, setPricingModal] = useState<{ open: boolean; plan: Plan | null }>({ open: false, plan: null });
   
@@ -150,6 +150,7 @@ const Index = () => {
 
     setIsLoading(true);
     setLoadingStep(0);
+    const loadingSteps = ['Reading your text...', 'Making it smooth...', 'Adding a human touch...', 'Almost there...'];
     
     // Animate loading steps
     const stepInterval = setInterval(() => {
@@ -216,14 +217,14 @@ const Index = () => {
       const hasShownFeedback = localStorage.getItem('hasShownHumanizerFeedback');
       if (!hasShownFeedback) {
         openModal('generic-success', {
-          title: 'Intelligence Humanized',
-          message: 'First processing successful. Your content has been stripped of AI signatures and optimized for human-like flow.'
+          title: 'All Ready!',
+          message: 'Your first piece is humanized and ready to go. We\'ve made sure it sounds natural and flows perfectly.'
         });
         localStorage.setItem('hasShownHumanizerFeedback', 'true');
       } else {
         toast({
-          title: "✨ Text Humanized!",
-          description: `Human score: ${data.humanScore}% - Your text now sounds natural.`,
+          title: "✨ Text is Ready!",
+          description: `Score: ${data.humanScore}% - Your writing now sounds natural.`,
         });
       }
     } catch (error) {
@@ -268,39 +269,39 @@ const Index = () => {
   const featuresList = [
     {
       icon: Award,
-      title: "Algorithmic Integrity",
-      description: "Polish synthetic drafts into coherent, brand-safe prose with elite technical precision.",
-      details: "Our proprietary algorithms analyze structural patterns, tone, and syntactic density to ensure your content meets the highest standards of professional publishing and academic rigor.",
+      title: "Natural Flow",
+      description: "We turn rough drafts into smooth, professional writing that everyone loves to read.",
+      details: "Our tools look at how people actually write—the rhythm, the heart, and the style. We make sure your work doesn't just pass detectors, but sounds great to your readers.",
     },
     {
       icon: Target,
-      title: "Granular Control",
-      description: "Maintain total authority over tone and vocabulary while preserving core intent.",
-      details: "Select from specialized processing modes including Academic, Creative, and Executive. Fine-tune the output to align perfectly with your unique institutional voice.",
+      title: "Your Voice, Your Way",
+      description: "Keep control over how you sound while we handle the heavy lifting.",
+      details: "Whether you need to sound scholarly, creative, or executive, we've got you covered. You choose the vibe, and we make it happen while keeping your original message intact.",
     },
     {
       icon: Globe,
-      title: "Global Infrastructure",
-      description: "Seamless processing for 50+ languages with neural-level translation accuracy.",
-      details: "Enterprise-grade support for multi-language pipelines with automatic dialect detection. Refine content in English, Spanish, Mandarin, German, and beyond.",
+      title: "Ready for the World",
+      description: "Write in over 50 languages with a natural touch that feels local.",
+      details: "We don't just translate; we understand. From Spanish to Mandarin, we help you communicate clearly across the globe with a human flair.",
     },
     {
       icon: Brain,
-      title: "Contextual Rewriting",
-      description: "Neural-mapped restructuring that captures the nuance of human experience.",
-      details: "We don't just substitute synonyms—our system remaps the semantic relationships within your text to ensure natural flow and authentic engagement.",
+      title: "Smart Rewriting",
+      description: "We understand the 'why' behind your words, not just the 'what'.",
+      details: "Instead of just swapping words around, we look at the whole story. Our system remaps your sentences so they flow naturally, just like a human writer would.",
     },
     {
       icon: Zap,
-      title: "SEO Optimization",
-      description: "Amplify search visibility with natural keyword clusters and enhanced readability.",
-      details: "Engineered for discoverability. Our output integrates search-critical phrases organically, improving SERP rankings while maintaining 100% human readability scores.",
+      title: "Get Noticed",
+      description: "Better writing means better SEO. We help you rank higher without trying too hard.",
+      details: "We weave in your keywords naturally so search engines love you, but humans can still enjoy reading your work. It's the best of both worlds.",
     },
     {
       icon: Shield,
-      title: "Bypass Infrastructure",
-      description: "Consistently circumvent every major AI detection platform with confidence.",
-      details: "Stress-tested against GPTZero, Originality AI, Turnitin, and Copyleaks. Our output architecture is designed to remain invisible to even the most rigorous detection nodes.",
+      title: "Built to Last",
+      description: "Write with confidence knowing your work will pass any check.",
+      details: "We've tested our tools against every major AI detector out there. Our goal is simple: to make sure your work is seen as 100% human, every single time.",
     },
   ];
 
@@ -308,9 +309,9 @@ const Index = () => {
     {
       name: "Lite",
       price: "$0",
-      description: "Initialized bypass capabilities",
-      features: ["5,000 words monthly allocation", "Trial detection bypass", "Standard processing speed", "Community support"],
-      cta: "Current Tier",
+      description: "Great for a quick start",
+      features: ["5,000 words every month", "Basic AI bypass", "Fast processing", "Email support"],
+      cta: "Current Plan",
       popular: false,
       planId: 'free' as const,
     },
@@ -318,9 +319,9 @@ const Index = () => {
       name: "Pro",
       price: "$5",
       originalPrice: "$10",
-      description: "Advanced humanization infrastructure",
-      features: ["Unlimited processing volume", "Full humanization spectrum", "Deep-scan AI detection", "SEO-cluster integration", "Executive-tier support", "API node access"],
-      cta: "Elevate to Pro",
+      description: "Perfect for serious writers",
+      features: ["Write unlimited words", "Advanced human touch", "Deep AI detection check", "Better for SEO", "Priority help", "API access"],
+      cta: "Join Pro",
       popular: true,
       planId: 'pro' as const,
     },
@@ -328,9 +329,9 @@ const Index = () => {
       name: "Ultra",
       price: "$10",
       originalPrice: "$20",
-      description: "Unrestricted mission-critical power",
-      features: ["Everything in Pro Tier", "Ultra-deep stealth mode", "99.9% bypass guarantee", "White-label enterprise ops", "Unlimited API throughput", "Dedicated technical lead"],
-      cta: "Activate Ultra",
+      description: "For teams and power users",
+      features: ["Everything in Pro", "The deepest human mode", "99.9% pass guarantee", "Use your own brand", "Unlimited API use", "Personal support"],
+      cta: "Get Ultra",
       popular: false,
       planId: 'ultra' as const,
     },
@@ -499,10 +500,10 @@ const Index = () => {
 
             <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 w-full max-w-4xl border-t border-border/10 pt-16">
               {[
-                { value: '99.9%', label: 'Bypass Rate' },
-                { value: '50K+', label: 'Global Users' },
-                { value: '10M+', label: 'Words Processed' },
-                { value: '24/7', label: 'Pro Support' },
+                { value: '99.9%', label: 'Human Score' },
+                { value: '50K+', label: 'Happy Users' },
+                { value: '10M+', label: 'Words Written' },
+                { value: '24/7', label: 'We\'re here to help' },
               ].map((stat, i) => (
                 <motion.div 
                   key={i} 
@@ -733,13 +734,13 @@ const Index = () => {
                             <div className="p-4 rounded-2xl bg-background/50 border border-border/50">
                               <ScoreDisplay
                                 score={Number(humanScore) || 0}
-                                label="Human Content Score"
+                                label="Human Touch Score"
                                 variant={typeof humanScore === 'number' && humanScore >= 90 ? "success" : typeof humanScore === 'number' && humanScore >= 70 ? "warning" : "danger"}
                               />
                             </div>
                             {improvements.length > 0 && (
                               <div className="space-y-2">
-                                <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Improvements Made</p>
+                                <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Changes We Made</p>
                                 <ul className="space-y-1">
                                   {improvements.map((improvement, i) => (
                                     <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -780,10 +781,10 @@ const Index = () => {
                         user && remaining <= 0 && "opacity-50 grayscale cursor-not-allowed"
                       )}
                     >
-                      {isLoading ? "Processing..." : (
+                      {isLoading ? "One moment..." : (
                         <>
                           {!user ? <Lock className="w-4 h-4 mr-2" /> : <Sparkles className="w-4 h-4 mr-2" />}
-                          {!user ? "Sign in to Humanize" : (user && remaining <= 0 ? "Limit Reached" : "Humanize Text")}
+                          {!user ? "Sign in to humanize" : (user && remaining <= 0 ? "Out of words" : "Make it human")}
                           {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
                         </>
                       )}
