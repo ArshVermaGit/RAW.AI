@@ -18,7 +18,7 @@ import { UpgradeModal } from '@/components/UpgradeModal';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { UsageIndicator } from '@/components/UsageIndicator';
 import { ModelSelector, AIModel } from '@/components/ModelSelector';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { useUsage } from '@/hooks/useUsage';
 import { cn } from '@/lib/utils';
@@ -85,15 +85,34 @@ const Index = () => {
     const wordCount = inputText.trim().split(/\s+/).length;
 
     // Check word limit for non-authenticated users
-    if (!user && wordCount > 200) {
-      openModal('auth-required', {
-        onConfirm: () => navigate('/auth')
+    if (!user) {
+      if (wordCount > 30) {
+        openModal('auth-required', {
+          onConfirm: () => navigate('/auth')
+        });
+        toast({
+          title: "Guest Limit Reached",
+          description: "Sign up to humanize more words.",
+          variant: "destructive"
+        });
+        return;
+      }
+    }
+
+    // Check remaining words for authenticated users
+    if (user && planLimit < Number.MAX_SAFE_INTEGER && remaining <= 0) {
+      openModal('limit-reached', {
+        onConfirm: () => openModal(subscribedPlan === 'free' ? 'pricing-pro' : 'pricing-ultra')
       });
       return;
     }
 
-    // Check remaining words for authenticated users
     if (user && planLimit < Number.MAX_SAFE_INTEGER && wordCount > remaining) {
+      toast({
+        title: "Insufficient words",
+        description: `You only have ${remaining} words left. Reduce text size or upgrade.`,
+        variant: "destructive"
+      });
       openModal('limit-reached', {
         onConfirm: () => openModal(subscribedPlan === 'free' ? 'pricing-pro' : 'pricing-ultra')
       });
@@ -240,7 +259,7 @@ const Index = () => {
       name: "Free",
       price: "$0",
       description: "Perfect for getting started",
-      features: ["200 words per request", "Lite mode only", "Basic AI detection check", "Community support"],
+      features: ["5,000 words monthly limit", "30 words max (Guest)", "Lite mode only", "Basic AI detection"],
       cta: "Current Plan",
       popular: false,
       planId: 'free' as const,
@@ -624,15 +643,30 @@ const Index = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 p-6 bg-secondary/20 border-t border-border/30">
-                  <MagneticButton size="xl" onClick={handleHumanize} disabled={isLoading || !inputText.trim()} className="w-full sm:w-auto min-w-[220px]">
-                    {isLoading ? "Processing..." : (
-                      <>
-                        <Sparkles className="w-5 h-5" />
-                        Humanize Text
-                        <ArrowRight className="w-4 h-4" />
-                      </>
+                  <div className="w-full sm:w-auto relative group">
+                    {user && remaining <= 0 && (
+                      <div className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-destructive text-destructive-foreground text-[10px] font-bold uppercase rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 pointer-events-none">
+                        Limit Reached - Upgrade to Continue
+                      </div>
                     )}
-                  </MagneticButton>
+                    <MagneticButton 
+                      size="xl" 
+                      onClick={handleHumanize} 
+                      disabled={isLoading || !inputText.trim() || (user && remaining <= 0)} 
+                      className={cn(
+                        "w-full sm:w-auto min-w-[220px]",
+                        user && remaining <= 0 && "opacity-50 grayscale cursor-not-allowed"
+                      )}
+                    >
+                      {isLoading ? "Processing..." : (
+                        <>
+                          <Sparkles className="w-5 h-5" />
+                          {user && remaining <= 0 ? "Limit Reached" : "Humanize Text"}
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </MagneticButton>
+                  </div>
                 </div>
               </div>
             </TabsContent>
