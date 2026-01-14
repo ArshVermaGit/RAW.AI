@@ -56,9 +56,9 @@ export const DynamicHeroText = () => {
         >
           <div className="absolute -inset-10 bg-foreground/[0.02] blur-3xl rounded-full -z-10" />
           <p className="text-lg md:text-xl text-muted-foreground/60 max-w-2xl text-center leading-relaxed font-medium text-balance">
-            The industrial-grade standard for refined human narratives. Transform 
-            <span className="text-foreground font-semibold mx-1.5 underline underline-offset-8 decoration-foreground/10">synthetic content</span>
-            into publication-ready prose that consistently clears every detection barrier.
+            A simple way to make your AI content feel real. Transform 
+            <span className="text-foreground font-semibold mx-1.5 underline underline-offset-8 decoration-foreground/10">synthetic writing</span>
+            into natural, engaging stories that people actually want to read.
           </p>
           
           <div className="mt-12 flex flex-wrap justify-center gap-3">
