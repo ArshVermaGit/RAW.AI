@@ -7,6 +7,9 @@ import { MagneticButton } from '@/components/MagneticButton';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+import { useModals } from '@/hooks/use-modals';
+import { useNavigate } from 'react-router-dom';
 
 interface SentenceAnalysis {
   text: string;
@@ -34,6 +37,10 @@ export const AIDetector = () => {
   const [result, setResult] = useState<DetectionResult | null>(null);
   const [copied, setCopied] = useState(false);
   const [showSentences, setShowSentences] = useState(false);
+  const { user } = useAuth();
+  const { openModal } = useModals();
+  const navigate = useNavigate();
+  const [hasShownFirstUseFeedback, setHasShownFirstUseFeedback] = useState(false);
 
   const wordCount = inputText.trim().split(/\s+/).filter(w => w).length;
   const charCount = inputText.length;
@@ -44,6 +51,13 @@ export const AIDetector = () => {
         title: "Empty input",
         description: "Please enter some text to analyze.",
         variant: "destructive",
+      });
+      return;
+    }
+
+    if (!user) {
+      openModal('auth-required', {
+        onConfirm: () => navigate('/auth')
       });
       return;
     }
@@ -72,6 +86,16 @@ export const AIDetector = () => {
         title: "Analysis Complete",
         description: `Detection score: ${data.overallScore}% AI probability`,
       });
+
+      // Show feedback modal for first usage
+      const hasShownFeedback = localStorage.getItem('hasShownDetectorFeedback');
+      if (!hasShownFeedback) {
+        openModal('generic-success', {
+          title: 'Detection Complete!',
+          message: 'Your analysis is ready. We have identified the AI probability and patterns in your text.'
+        });
+        localStorage.setItem('hasShownDetectorFeedback', 'true');
+      }
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to analyze text.';
       toast({
@@ -167,13 +191,24 @@ export const AIDetector = () => {
               </div>
               <Textarea
                 value={inputText}
-                onChange={(e) => setInputText(e.target.value)}
+                onChange={(e) => {
+                  if (!user) {
+                    openModal('auth-required', { onConfirm: () => navigate('/auth') });
+                    return;
+                  }
+                  setInputText(e.target.value);
+                }}
+                onFocus={() => {
+                  if (!user) {
+                    openModal('auth-required', { onConfirm: () => navigate('/auth') });
+                  }
+                }}
                 placeholder="Paste text here to check if it was written by AI... (minimum 30 words)"
                 className="flex-1 border-0 rounded-none bg-transparent resize-none focus:ring-0 text-base p-6"
               />
               {!inputText && (
                 <div className="absolute inset-0 top-[57px] flex flex-col items-center justify-center gap-4">
-                  <MagneticButton variant="secondary" onClick={handleTrySample}>Try Sample Text</MagneticButton>
+                  <MagneticButton variant="secondary" onClick={user ? handleTrySample : () => openModal('auth-required', { onConfirm: () => navigate('/auth') })}>Try Sample Text</MagneticButton>
                 </div>
               )}
             </div>
