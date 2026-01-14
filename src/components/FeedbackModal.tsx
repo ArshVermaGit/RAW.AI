@@ -15,51 +15,7 @@ interface FeedbackModalProps {
 }
 
 const config = {
-  'login-success': {
-    icon: Sparkles,
-    color: 'text-blue-500',
-    bgColor: 'bg-blue-500/10',
-    glowColor: 'from-blue-500/20',
-    defaultTitle: 'Welcome Back!',
-    defaultMessage: 'You have successfully signed into your account.',
-    buttonText: 'Get Started',
-  },
-  'login-error': {
-    icon: XCircle,
-    color: 'text-red-500',
-    bgColor: 'bg-red-500/10',
-    glowColor: 'from-red-500/20',
-    defaultTitle: 'Authentication Failed',
-    defaultMessage: 'Invalid email or password. Please try again.',
-    buttonText: 'Try Again',
-  },
-  'signup-success': {
-    icon: PartyPopper,
-    color: 'text-purple-500',
-    bgColor: 'bg-purple-500/10',
-    glowColor: 'from-purple-500/20',
-    defaultTitle: 'Welcome aboard!',
-    defaultMessage: 'Your account has been created successfully. Ready to humanize your content?',
-    buttonText: 'Start Creating',
-  },
-  'forgot-sent': {
-    icon: Mail,
-    color: 'text-orange-500',
-    bgColor: 'bg-orange-500/10',
-    glowColor: 'from-orange-500/20',
-    defaultTitle: 'Check your inbox',
-    defaultMessage: 'We\'ve sent a password reset link to your email address.',
-    buttonText: 'Back to Login',
-  },
-  'reset-success': {
-    icon: CheckCircle2,
-    color: 'text-green-500',
-    bgColor: 'bg-green-500/10',
-    glowColor: 'from-green-500/20',
-    defaultTitle: 'Password Updated',
-    defaultMessage: 'Your password has been reset. You can now log in with your new credentials.',
-    buttonText: 'Log In Now',
-  },
+
   'payment-success': {
     icon: PartyPopper,
     color: 'text-green-500',
@@ -93,8 +49,8 @@ const config = {
     bgColor: 'bg-blue-500/10',
     glowColor: 'from-blue-500/20',
     defaultTitle: 'Unlock Full Power',
-    defaultMessage: 'Sign up for a free account to humanize more words and save your history!',
-    buttonText: 'Sign Up Free',
+    defaultMessage: 'Sign in with Google to humanize more words and save your history!',
+    buttonText: 'Continue with Google',
   },
   'logout-confirm': {
     icon: LogOut,
