@@ -266,8 +266,8 @@ const Index = () => {
     },
     {
       name: "Pro",
-      price: "$25",
-      originalPrice: "$49",
+      price: "$5",
+      originalPrice: "$10",
       description: "For serious content creators",
       features: ["Unlimited words", "Pro humanization mode", "Advanced AI detection", "SEO optimization", "Priority support", "API access"],
       cta: "Upgrade to Pro",
@@ -276,8 +276,8 @@ const Index = () => {
     },
     {
       name: "Ultra",
-      price: "$50",
-      originalPrice: "$99",
+      price: "$10",
+      originalPrice: "$20",
       description: "For power users & teams",
       features: ["Everything in Pro", "Ultra humanization mode", "99.9% undetectable guarantee", "White-label options", "Dedicated support", "Custom integrations"],
       cta: "Upgrade to Ultra",
