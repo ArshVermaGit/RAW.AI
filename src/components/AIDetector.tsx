@@ -99,8 +99,8 @@ export const AIDetector = () => {
       const hasShownFeedback = localStorage.getItem('hasShownDetectorFeedback');
       if (!hasShownFeedback) {
         openModal('generic-success', {
-          title: 'Detection Complete!',
-          message: 'Your analysis is ready. We have identified the AI probability and patterns in your text.'
+          title: 'Deep Scan Initialized',
+          message: 'First analysis complete. Our algorithms have successfully mapped the structural patterns and origin probability of your content.'
         });
         localStorage.setItem('hasShownDetectorFeedback', 'true');
       } else {
