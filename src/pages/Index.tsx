@@ -315,10 +315,12 @@ const Index = () => {
                       variant="ghost"
                       size="sm"
                       className="rounded-full gap-2"
-                      onClick={() => {
-                        signOut();
-                        toast({ title: 'Signed out', description: 'See you next time!' });
-                      }}
+                      onClick={() => openModal('logout-confirm', {
+                        onConfirm: async () => {
+                          await signOut();
+                          navigate('/auth');
+                        }
+                      })}
                     >
                       <LogOut className="w-4 h-4" />
                       Logout
@@ -393,10 +395,12 @@ const Index = () => {
                         variant="ghost"
                         size="sm"
                         className="rounded-full gap-2"
-                        onClick={() => {
-                          signOut();
-                          toast({ title: 'Signed out', description: 'See you next time!' });
-                        }}
+                        onClick={() => openModal('logout-confirm', {
+                          onConfirm: async () => {
+                            await signOut();
+                            navigate('/auth');
+                          }
+                        })}
                       >
                         <LogOut className="w-4 h-4" />
                         Logout
