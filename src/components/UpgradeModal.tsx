@@ -140,7 +140,12 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
       // Load Razorpay script
       const scriptLoaded = await loadRazorpayScript();
       if (!scriptLoaded) {
-        throw new Error('Failed to load payment gateway');
+        openModal('generic-error', { 
+          title: 'Gateway Error', 
+          message: 'Failed to load the payment gateway. Please check your connection.' 
+        });
+        setIsLoading(false);
+        return;
       }
 
       // Create order
@@ -160,7 +165,10 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
 
       if (!orderResponse.ok) {
         const error = await orderResponse.json();
-        throw new Error(error.error || 'Failed to create order');
+        console.error('Order creation error:', error);
+        openModal('order-failed');
+        setIsLoading(false);
+        return;
       }
 
       const orderData = await orderResponse.json();
@@ -212,11 +220,7 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
             });
           } catch (error) {
             console.error('Verification error:', error);
-            toast({
-              title: 'Verification Issue',
-              description: 'Payment received but verification pending. Please contact support.',
-              variant: 'destructive',
-            });
+            openModal('payment-verification-failed');
           }
         },
         prefill: {
@@ -228,6 +232,7 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
         modal: {
           ondismiss: () => {
             setIsLoading(false);
+            openModal('payment-canceled');
           },
         },
       };
@@ -242,10 +247,9 @@ export const UpgradeModal = ({ isOpen, onClose, plan, onSuccess }: UpgradeModalP
       razorpay.open();
     } catch (error) {
       console.error('Payment error:', error);
-      toast({
-        title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to initialize payment',
-        variant: 'destructive',
+      openModal('generic-error', {
+        title: 'Initialization Failed',
+        message: error instanceof Error ? error.message : 'Failed to initialize payment gateway.'
       });
       setIsLoading(false);
     }
