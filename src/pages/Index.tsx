@@ -23,6 +23,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useUsage } from '@/hooks/useUsage';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
+import { useModals } from '@/hooks/use-modals';
 import { AIDetector } from '@/components/AIDetector';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -60,7 +61,8 @@ const Index = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [featureModal, setFeatureModal] = useState<{ open: boolean; feature: Feature | null }>({ open: false, feature: null });
   const [pricingModal, setPricingModal] = useState<{ open: boolean; plan: Plan | null }>({ open: false, plan: null });
-  const [upgradeModal, setUpgradeModal] = useState<{ open: boolean; plan: 'pro' | 'ultra' }>({ open: false, plan: 'pro' });
+  
+  const { openModal } = useModals();
 
   const { user, profile, signOut, refreshProfile, session } = useAuth();
   const navigate = useNavigate();
@@ -84,23 +86,17 @@ const Index = () => {
 
     // Check word limit for non-authenticated users
     if (!user && wordCount > 200) {
-      toast({
-        title: "Word limit exceeded",
-        description: "Sign up for free to humanize more than 200 words!",
-        variant: "destructive",
+      openModal('auth-required', {
+        onConfirm: () => navigate('/auth')
       });
-      navigate('/auth');
       return;
     }
 
     // Check remaining words for authenticated users
     if (user && planLimit < Number.MAX_SAFE_INTEGER && wordCount > remaining) {
-      toast({
-        title: "Limit reached",
-        description: `You only have ${remaining} words remaining this month. Upgrade for more!`,
-        variant: "destructive",
+      openModal('limit-reached', {
+        onConfirm: () => openModal(subscribedPlan === 'free' ? 'pricing-pro' : 'pricing-ultra')
       });
-      setUpgradeModal({ open: true, plan: subscribedPlan === 'free' ? 'pro' : 'ultra' });
       return;
     }
 
@@ -132,28 +128,21 @@ const Index = () => {
       if (!response.ok) {
         // Handle specific error cases
         if (data.limitReached) {
-          toast({
-            title: "Monthly limit reached",
-            description: `Upgrade your plan to continue humanizing text.`,
-            variant: "destructive",
+          openModal('limit-reached', {
+            onConfirm: () => openModal(subscribedPlan === 'free' ? 'pricing-pro' : 'pricing-ultra')
           });
-          setUpgradeModal({ open: true, plan: subscribedPlan === 'free' ? 'pro' : 'ultra' });
           return;
         }
         if (data.requiresAuth) {
-          toast({
-            title: "Sign up required",
-            description: data.error,
+          openModal('auth-required', {
+            onConfirm: () => navigate('/auth')
           });
-          navigate('/auth');
           return;
         }
         if (data.requiresUpgrade) {
-          toast({
-            title: "Upgrade required",
-            description: data.error,
+          openModal('limit-reached', {
+            onConfirm: () => openModal(data.requiredPlan === 'pro' ? 'pricing-pro' : 'pricing-ultra')
           });
-          setUpgradeModal({ open: true, plan: data.requiredPlan });
           return;
         }
         throw new Error(data.error || 'Failed to humanize text');
@@ -486,7 +475,7 @@ const Index = () => {
               <div className="relative rounded-3xl overflow-hidden bg-card/80 backdrop-blur-xl border border-border/30">
                 {user && (
                   <div className="p-4 lg:p-6 border-b border-border/30 bg-primary/5">
-                    <UsageIndicator onUpgrade={() => setUpgradeModal({ open: true, plan: subscribedPlan === 'free' ? 'pro' : 'ultra' })} />
+                    <UsageIndicator onUpgrade={() => openModal(subscribedPlan === 'free' ? 'pricing-pro' : 'pricing-ultra')} />
                   </div>
                 )}
 
@@ -500,7 +489,7 @@ const Index = () => {
                         return (
                           <button
                             key={l}
-                            onClick={() => isLocked ? setUpgradeModal({ open: true, plan: l as 'pro' | 'ultra' }) : setLevel(l)}
+                            onClick={() => isLocked ? openModal(l as 'pricing-pro' | 'pricing-ultra') : setLevel(l)}
                             className={cn(
                               "relative flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all",
                               isActive ? "bg-foreground text-background shadow-lg" : "text-muted-foreground hover:text-foreground",
@@ -536,7 +525,7 @@ const Index = () => {
                   {showModelSelector && subscribedPlan !== 'free' && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden border-b border-border/30">
                       <div className="p-4 lg:p-6 bg-secondary/10">
-                        <ModelSelector selectedModel={selectedModel} onSelectModel={setSelectedModel} onUpgrade={(plan) => setUpgradeModal({ open: true, plan })} />
+                        <ModelSelector selectedModel={selectedModel} onSelectModel={setSelectedModel} onUpgrade={(plan) => openModal(plan === 'pro' ? 'pricing-pro' : 'pricing-ultra')} />
                       </div>
                     </motion.div>
                   )}
@@ -806,7 +795,7 @@ const Index = () => {
                     </li>
                   ))}
                 </ul>
-                <MagneticButton variant={plan.popular ? "secondary" : "primary"} className="w-full" onClick={() => plan.planId !== 'free' ? setUpgradeModal({ open: true, plan: plan.planId }) : !user && navigate('/auth')}>
+                <MagneticButton variant={plan.popular ? "secondary" : "primary"} className="w-full" onClick={() => (plan.planId === 'pro' || plan.planId === 'ultra') ? openModal(plan.planId === 'pro' ? 'pricing-pro' : 'pricing-ultra') : !user && navigate('/auth')}>
                   {plan.cta}
                 </MagneticButton>
               </div>
@@ -856,7 +845,6 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Modals */}
       <Modal isOpen={featureModal.open} onClose={() => setFeatureModal({ open: false, feature: null })} title={featureModal.feature?.title}>
         {featureModal.feature && (
           <div className="space-y-6">
@@ -865,20 +853,6 @@ const Index = () => {
           </div>
         )}
       </Modal>
-
-      <UpgradeModal
-        isOpen={upgradeModal.open}
-        onClose={() => setUpgradeModal({ ...upgradeModal, open: false })}
-        plan={upgradeModal.plan}
-        onSuccess={async (p) => {
-          if (user) {
-            await supabase.from('profiles').update({ subscribed_plan: p }).eq('id', user.id);
-            await refreshProfile();
-          }
-          setLevel(p as Level);
-          toast({ title: `🎉 Welcome to ${p}!`, description: `You now have access to ${p} mode.` });
-        }}
-      />
     </div>
   );
 };
