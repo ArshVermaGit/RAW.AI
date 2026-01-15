@@ -473,7 +473,7 @@ const Index = () => {
         </div>
       </nav>
 
-      <section className="pt-32 pb-32 px-6 relative overflow-hidden grain-texture">
+      <section className="pt-24 md:pt-32 pb-16 md:pb-32 px-4 md:px-6 relative overflow-hidden grain-texture">
         {/* Soft Organic Background */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,0,0,0.03)_0%,transparent_70%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.03)_0%,transparent_70%)] -z-10" />
         
@@ -481,7 +481,7 @@ const Index = () => {
           <div className="flex flex-col items-center">
             <DynamicHeroText />
 
-            <div className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 w-full max-w-5xl border-t border-foreground/5 pt-12">
+            <div className="mt-12 md:mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 w-full max-w-5xl border-t border-foreground/5 pt-8 md:pt-12">
               {[
                 { value: '99.9%', label: 'Human Score', icon: Star },
                 { value: '50K+', label: 'Readers Reached', icon: Crown },
@@ -509,11 +509,11 @@ const Index = () => {
       </section>
 
       {/* Tool Hub Section */}
-      <section id="converter" className="pt-12 pb-20 px-6 relative z-10">
+      <section id="converter" className="pt-8 md:pt-12 pb-12 md:pb-20 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-5xl">
           <Tabs defaultValue="humanizer" className="w-full">
-            <div className="flex justify-center mb-12 relative group">
-              <TabsList className="relative z-10 bg-secondary/5 backdrop-blur-3xl border border-foreground/5 p-1 rounded-full h-14 w-full max-w-[400px] shadow-sm">
+            <div className="flex justify-center mb-8 md:mb-12 relative group">
+              <TabsList className="relative z-10 bg-secondary/5 backdrop-blur-3xl border border-foreground/5 p-1 rounded-full h-14 w-full max-w-sm md:max-w-[400px] shadow-sm">
                 <TabsTrigger 
                   value="humanizer" 
                   className="rounded-full flex-1 h-full font-bold text-[10px] uppercase tracking-[0.2em] data-[state=active]:bg-foreground data-[state=active]:text-background transition-all duration-700"
@@ -806,19 +806,19 @@ const Index = () => {
       <TrustedByMarquee />
 
       {/* Features Section */}
-      <section id="features" className="py-16 px-6 relative z-10">
+      <section id="features" className="py-12 md:py-16 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-4 block">Features</span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+            <h2 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
               Why Choose <span className="text-gradient-animated">RAW.AI</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg">
               Transform AI content into natural, reader-friendly writing with our advanced technology.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {featuresList.map((feature, index) => (
               <InteractiveCard
                 key={index}
@@ -833,17 +833,17 @@ const Index = () => {
       </section>
 
       {/* Examples Section */}
-      <section id="examples" className="py-16 px-6 relative z-10">
+      <section id="examples" className="py-12 md:py-16 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-6xl relative z-10">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-4 block">Examples</span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+            <h2 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
               See the <span className="text-gradient-animated">Difference</span>
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            <div className="p-8 rounded-2xl bg-card/50 border border-destructive/30">
+          <div className="grid lg:grid-cols-2 gap-4 md:gap-8">
+            <div className="p-5 md:p-8 rounded-2xl bg-card/50 border border-destructive/30">
               <div className="flex items-center justify-between mb-6">
                 <span className="text-xs font-medium px-3 py-1.5 rounded-full bg-destructive/10 text-destructive">AI Detected</span>
                 <span className="text-sm text-muted-foreground">GPT-4</span>
@@ -853,7 +853,7 @@ const Index = () => {
               </p>
               <ScoreDisplay score={100} label="AI Detected" variant="danger" />
             </div>
-            <div className="p-8 rounded-2xl bg-card/50 border border-success/30">
+            <div className="p-5 md:p-8 rounded-2xl bg-card/50 border border-success/30">
               <div className="flex items-center justify-between mb-6">
                 <span className="text-xs font-medium px-3 py-1.5 rounded-full bg-success/10 text-success">Human-like</span>
                 <span className="text-sm text-muted-foreground">Humanized</span>
@@ -868,20 +868,20 @@ const Index = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-16 px-6 relative z-10">
+      <section className="py-12 md:py-16 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-4 block">Process</span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold">3 Simple Steps</h2>
+            <h2 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold">3 Simple Steps</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
             {[
               { num: '01', title: 'Paste Your Text', desc: 'Copy your AI content and paste it into our editor.', icon: ClipboardPaste },
               { num: '02', title: 'Click Humanize', desc: 'Choose your settings and transform your text.', icon: Wand2 },
               { num: '03', title: 'Copy & Use', desc: 'Get natural content ready to publish anywhere.', icon: Copy },
             ].map((step, i) => (
-              <div key={i} className="relative p-8 rounded-2xl bg-card/30 border border-border/30 group hover:bg-card/50 transition-all">
+              <div key={i} className="relative p-6 md:p-8 rounded-2xl bg-card/30 border border-border/30 group hover:bg-card/50 transition-all">
                 <span className="absolute top-6 right-6 text-6xl font-bold text-foreground/5">{step.num}</span>
                 <div className="w-12 h-12 rounded-xl bg-foreground/10 flex items-center justify-center mb-6">
                   <step.icon className="w-6 h-6 text-foreground" />
@@ -895,14 +895,14 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 px-6 relative z-10 overflow-hidden bg-foreground text-background">
+      <section className="py-12 md:py-16 px-4 md:px-6 relative z-10 overflow-hidden bg-foreground text-background">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <span className="text-xs font-medium uppercase tracking-wider opacity-60 mb-4 block">Testimonials</span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold">Loved by Creators</h2>
+            <h2 className="font-display text-3xl md:text-5xl font-bold">Loved by Creators</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
             {[
               { quote: "I always refine drafts to make them more engaging. This tool helps polish my words while keeping my style intact.", author: "Emily D.", role: "Content Writer" },
               { quote: "In SEO, originality is crucial. This tool helped me produce materials that improved my website ranking significantly.", author: "Michael L.", role: "SEO Expert" },
@@ -927,16 +927,16 @@ const Index = () => {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-16 px-6 relative z-10">
+      <section id="pricing" className="py-12 md:py-16 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 md:mb-12">
             <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground mb-4 px-4 py-2 bg-card/50 rounded-full border border-border/30">
               <Crown className="w-3 h-3" /> Pricing
             </span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Choose Your Plan</h2>
+            <h2 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold mb-4">Choose Your Plan</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
             {pricingPlans.map((plan, i) => (
               <div key={i} className={cn("group relative rounded-3xl p-8 border-2 transition-all", plan.popular ? "bg-foreground text-background border-foreground shadow-2xl scale-105 z-10" : "bg-card/60 border-border/50")}>
                 {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-background text-foreground text-[10px] font-black uppercase px-3 py-1 rounded-full border border-border/30">Most Popular</div>}
@@ -979,10 +979,10 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-6 relative z-10">
+      <section className="py-12 md:py-16 px-4 md:px-6 relative z-10">
         <div className="container mx-auto max-w-3xl text-center">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">Ready to Humanize?</h2>
-          <p className="text-lg text-muted-foreground mb-10">Join thousands of creators who trust our tool.</p>
+          <h2 className="font-display text-3xl md:text-5xl font-bold mb-6">Ready to Humanize?</h2>
+          <p className="text-base md:text-lg text-muted-foreground mb-8 md:mb-10">Join thousands of creators who trust our tool.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <MagneticButton size="xl" onClick={() => document.getElementById('converter')?.scrollIntoView({ behavior: 'smooth' })}>
               Start Free Now <ArrowRight className="w-5 h-5 ml-2" />
@@ -992,9 +992,9 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-border/30">
+      <footer className="py-12 md:py-16 px-4 md:px-6 border-t border-border/30">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 md:gap-8 mb-12">
             <div className="col-span-1">
               <div className="flex items-center gap-3 mb-4">
                 <img src="/logo.png" alt="RAW.AI" className="w-8 h-8 object-contain dark:invert" />
