@@ -152,6 +152,7 @@ serve(async (req: Request) => {
       ];
       if (userPlan === 'ultra') {
         allowedModels.push("gpt-4-turbo");
+        allowedModels.push("o1-preview");
       }
       if (allowedModels.includes(model)) {
         selectedModel = model;
