@@ -134,8 +134,8 @@ const Auth = () => {
               RAW<span className="text-muted-foreground">.AI</span>
             </span>
           </motion.div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Welcome back</h1>
-          <p className="text-muted-foreground text-lg max-w-sm mx-auto">
+          <h1 className="text-2xl md:text-4xl font-bold mb-4 tracking-tight">Welcome back</h1>
+          <p className="text-muted-foreground text-base md:text-lg max-w-sm mx-auto">
             Join thousands of writers who are making their AI content feel real.
           </p>
         </motion.div>
@@ -143,7 +143,7 @@ const Auth = () => {
         {/* Auth Card */}
         <div className="relative group">
           <div className="absolute -inset-1 bg-gradient-to-b from-foreground/20 to-transparent rounded-3xl blur-md opacity-50 group-hover:opacity-100 transition-opacity" />
-          <div className="relative bg-card/80 backdrop-blur-2xl border border-border/30 rounded-3xl p-10 shadow-2xl overflow-hidden">
+          <div className="relative bg-card/80 backdrop-blur-2xl border border-border/30 rounded-3xl p-6 md:p-10 shadow-2xl overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
               <Sparkles className="w-32 h-32" />
