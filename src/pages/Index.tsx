@@ -20,7 +20,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { UsageIndicator } from '@/components/UsageIndicator';
 import { ModelSelector, AIModel } from '@/components/ModelSelector';
 import { useAuth } from '@/hooks/useAuth';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import { useUsage } from '@/hooks/useUsage';
 import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
@@ -28,6 +28,7 @@ import { useModals } from '@/hooks/use-modals';
 import { AIDetector } from '@/components/AIDetector';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
+// ... definitions of Level, SubscribedPlan, Feature, Plan ...
 type Level = 'lite' | 'pro' | 'ultra';
 type SubscribedPlan = 'free' | 'pro' | 'ultra';
 
@@ -57,7 +58,8 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [level, setLevel] = useState<Level>('lite');
-  const [selectedModel, setSelectedModel] = useState<AIModel>('google/gemini-2.5-flash');
+  const [style, setStyle] = useState('general');
+  const [selectedModel, setSelectedModel] = useState<AIModel>('gpt-4o-mini');
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loadingStep, setLoadingStep] = useState(0);
@@ -69,7 +71,7 @@ const Index = () => {
 
   const { user, profile, signOut, refreshProfile, session, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  // removed useToast
   const { remaining, refetch: refetchUsage, planLimit } = useUsage();
 
   // Get subscribed plan from profile
@@ -92,29 +94,15 @@ const Index = () => {
   // Handle onboarding sequence after login
   useEffect(() => {
     if (user && profile && !profile.onboarding_completed) {
-      openModal('welcome-new', {
-        onConfirm: async () => {
-          // Update profile to mark onboarding as completed
-          await supabase
-            .from('profiles')
-            .update({ onboarding_completed: true })
-            .eq('id', user.id);
-          
-          await refreshProfile();
-          
-          // Chain to pricing modal
-          openModal('pricing-pro');
-        }
-      });
+      // Redirect to onboarding page instead of showing modal
+      navigate('/onboarding');
     }
-  }, [user, profile, openModal, refreshProfile]);
+  }, [user, profile, navigate]);
 
   const handleHumanize = async () => {
     if (!inputText.trim()) {
-      toast({
-        title: "Empty input",
+      toast.error("Empty input", {
         description: "Please enter some text to humanize.",
-        variant: "destructive",
       });
       return;
     }
@@ -138,10 +126,8 @@ const Index = () => {
     }
 
     if (user && planLimit < Number.MAX_SAFE_INTEGER && wordCount > remaining) {
-      toast({
-        title: "Insufficient words",
+      toast.error("Insufficient words", {
         description: `You only have ${remaining} words left. Reduce text size or upgrade.`,
-        variant: "destructive"
       });
       openModal('limit-reached', {
         onConfirm: () => openModal(subscribedPlan === 'free' ? 'pricing-pro' : 'pricing-ultra')
@@ -177,7 +163,7 @@ const Index = () => {
         body: JSON.stringify({
           text: inputText,
           level: level,
-          style: 'general',
+          style: style,
           model: selectedModel,
         }),
       });
@@ -223,17 +209,14 @@ const Index = () => {
         });
         localStorage.setItem('hasShownHumanizerFeedback', 'true');
       } else {
-        toast({
-          title: "✨ Text is Ready!",
+        toast.success("✨ Text is Ready!", {
           description: `Score: ${data.humanScore}% - Your writing now sounds natural.`,
         });
       }
     } catch (error) {
       console.error('Humanization error:', error);
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: error instanceof Error ? error.message : "Failed to humanize text. Please try again.",
-        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -246,7 +229,7 @@ const Index = () => {
     if (!outputText) return;
     await navigator.clipboard.writeText(outputText);
     setCopied(true);
-    toast({ title: "📋 Copied!", description: "Text copied to clipboard." });
+    toast.success("📋 Copied!", { description: "Text copied to clipboard." });
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -254,9 +237,9 @@ const Index = () => {
     try {
       const text = await navigator.clipboard.readText();
       setInputText(text);
-      toast({ title: "📝 Pasted!", description: "Text pasted from clipboard." });
+      toast.success("📝 Pasted!", { description: "Text pasted from clipboard." });
     } catch {
-      toast({ title: "Error", description: "Could not access clipboard.", variant: "destructive" });
+      toast.error("Error", { description: "Could not access clipboard." });
     }
   };
 
@@ -581,6 +564,23 @@ const Index = () => {
                           </button>
                         );
                       })}
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="text-sm font-medium text-muted-foreground">Style:</span>
+                    <div className="flex flex-wrap items-center gap-2 p-1 bg-background/40 backdrop-blur-md rounded-full border border-border/40">
+                      {['general', 'business', 'academic', 'casual', 'creative'].map((s) => (
+                        <button
+                          key={s}
+                          onClick={() => setStyle(s)}
+                          className={cn(
+                            "px-4 py-2 rounded-full text-xs font-bold transition-all capitalize",
+                            style === s ? "bg-foreground text-background shadow-lg" : "text-muted-foreground hover:text-foreground"
+                          )}
+                        >
+                          {s}
+                        </button>
+                      ))}
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -1002,13 +1002,13 @@ const Index = () => {
               <p className="text-sm text-muted-foreground">Transform AI text into authentic content.</p>
             </div>
             {[
-              { title: 'Product', links: ['AI Humanizer', 'AI Detector'] },
-              { title: 'Legal', links: ['Privacy', 'Terms'] },
+              { title: 'Product', links: [{ label: 'AI Humanizer', action: () => document.getElementById('converter')?.scrollIntoView({ behavior: 'smooth' }) }, { label: 'AI Detector', action: () => document.getElementById('converter')?.scrollIntoView({ behavior: 'smooth' }) }] },
+              { title: 'Legal', links: [{ label: 'Privacy', action: () => navigate('/privacy') }, { label: 'Terms', action: () => navigate('/terms') }] },
             ].map((col, i) => (
               <div key={i}>
                 <h4 className="font-semibold mb-4">{col.title}</h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
-                  {col.links.map((l, j) => <li key={j}><a href="#" className="hover:text-foreground">{l}</a></li>)}
+                  {col.links.map((l, j) => <li key={j}><button onClick={l.action} className="hover:text-foreground text-left">{l.label}</button></li>)}
                 </ul>
               </div>
             ))}
