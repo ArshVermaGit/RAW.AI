@@ -37,14 +37,14 @@ export const DynamicHeroText = () => {
   return (
     <motion.div 
       ref={containerRef}
-      className="relative w-full z-10 py-12"
+      className="relative w-full z-10 py-8"
       variants={containerVars}
       initial="initial"
       animate="animate"
     >
       <div className="flex flex-col items-center relative z-10">
         {/* Subtle Brand Mark */}
-        <motion.div variants={itemVars} className="mb-12 flex items-center gap-4">
+        <motion.div variants={itemVars} className="mb-6 flex items-center gap-4">
           <div className="h-px w-8 bg-foreground/20" />
           <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-muted-foreground">
             A Human Story
@@ -52,7 +52,7 @@ export const DynamicHeroText = () => {
           <div className="h-px w-8 bg-foreground/20" />
         </motion.div>
         
-        <div className="relative mb-16 px-4">
+        <div className="relative mb-8 px-4">
           <motion.div 
             style={{ y: y2 }}
             className="flex flex-col items-center"
@@ -89,7 +89,7 @@ export const DynamicHeroText = () => {
           variants={itemVars}
           className="max-w-3xl flex flex-col items-center"
         >
-          <div className="flex items-center gap-6 mb-10 opacity-40">
+          <div className="flex items-center gap-6 mb-6 opacity-40">
             <Quote className="w-5 h-5 fill-muted-foreground/20" />
           </div>
           
@@ -97,7 +97,7 @@ export const DynamicHeroText = () => {
             "Because every piece of writing deserves a heartbeat. We don't just process text; we infuse it with the <span className="text-foreground font-medium border-b border-foreground/10">authenticity</span> of human touch."
           </p>
           
-          <div className="mt-16 flex flex-wrap justify-center gap-12 border-t border-foreground/5 pt-12 w-full px-6">
+          <div className="mt-10 flex flex-wrap justify-center gap-8 border-t border-foreground/5 pt-8 w-full px-6">
              {[
                { icon: Feather, label: 'Natural Flow', desc: 'Rhythm in every sentence' },
                { icon: Heart, label: 'Handcrafted', desc: 'No robotic patterns' },
