@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { FloatingParticles } from '@/components/FloatingParticles';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 
 // Google Icon Component
@@ -23,7 +23,6 @@ const Auth = () => {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   // Handle Google Sign In
   const handleGoogleSignIn = async () => {
@@ -41,17 +40,13 @@ const Auth = () => {
       });
 
       if (error) {
-        toast({
-          title: 'Authentication Error',
+        toast.error('Authentication Error', {
           description: error.message,
-          variant: 'destructive',
         });
       }
     } catch (error) {
-      toast({
-        title: 'Error',
+      toast.error('Error', {
         description: 'Failed to sign in with Google',
-        variant: 'destructive',
       });
     } finally {
       setIsGoogleLoading(false);
