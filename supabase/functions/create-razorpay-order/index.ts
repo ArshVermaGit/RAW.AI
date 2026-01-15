@@ -38,6 +38,8 @@ serve(async (req: Request) => {
       );
     }
 
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
     const RAZORPAY_KEY_ID = Deno.env.get("RAZORPAY_KEY_ID");
     const RAZORPAY_KEY_SECRET = Deno.env.get("RAZORPAY_KEY_SECRET");
 
@@ -46,6 +48,29 @@ serve(async (req: Request) => {
       return new Response(
         JSON.stringify({ error: "Payment gateway not configured" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Verify user authentication
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } },
+    });
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
+
+    if (authError || !user) {
+      console.error("Auth error:", authError);
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -64,7 +89,7 @@ serve(async (req: Request) => {
       );
     }
 
-    console.log(`Creating Razorpay order for ${plan} plan, amount: ${amount} cents`);
+    console.log(`Creating Razorpay order for ${plan} plan, amount: ${amount} cents, user: ${user.id}`);
 
     // Create Razorpay order
     const orderData = {
@@ -101,12 +126,11 @@ serve(async (req: Request) => {
     console.log("Razorpay order created:", order.id);
 
     // Store the order in database
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     const { error: dbError } = await supabase.from("subscriptions").insert({
-      user_id: userId || null,
+      user_id: user.id,
       user_email: email,
       plan: plan,
       razorpay_order_id: order.id,
