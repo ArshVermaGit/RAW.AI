@@ -70,15 +70,15 @@ export const Modal = ({ isOpen, onClose, children, title, className }: ModalProp
             {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-secondary/80 hover:bg-secondary transition-colors group"
+              className="absolute top-4 right-4 z-50 p-2 rounded-full bg-secondary/80 hover:bg-secondary transition-colors group"
             >
               <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
             </button>
 
             {/* Content */}
-            <div className="relative p-8">
+            <div className="relative p-5 md:p-8">
               {title && (
-                <h2 className="text-2xl font-bold mb-6">{title}</h2>
+                <h2 className="text-xl md:text-2xl font-bold mb-6 pr-8">{title}</h2>
               )}
               {children}
             </div>
