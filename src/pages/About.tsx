@@ -1,196 +1,204 @@
-import { ArrowLeft, Mail, Github, Linkedin, Twitter, Gamepad2, Code, Sparkles } from 'lucide-react';
+import { ArrowLeft, Mail, Github, Linkedin, Twitter, Gamepad2, Code2, Sparkles, GraduationCap, Globe, Cpu, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { MapPin } from 'lucide-react';
 import { MagneticButton } from '@/components/MagneticButton';
 import arshAvatar from '@/assets/arsh-avatar.jpg';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
 const About = () => {
   const navigate = useNavigate();
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  const socialLinks = [
-    { icon: Mail, href: 'mailto:arshverma.dev@gmail.com', label: 'Email', color: 'hover:text-red-400' },
-    { icon: Github, href: 'https://github.com/ArshVermaGit', label: 'GitHub', color: 'hover:text-purple-400' },
-    { icon: Linkedin, href: 'https://www.linkedin.com/in/arshvermadev/', label: 'LinkedIn', color: 'hover:text-blue-400' },
-    { icon: Twitter, href: 'https://x.com/TheArshVerma', label: 'X (Twitter)', color: 'hover:text-sky-400' },
-  ];
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
 
-  const skills = [
-    { icon: Gamepad2, label: 'Game Development', desc: 'Unity Expert' },
-    { icon: Code, label: 'Full-Stack Dev', desc: 'Web & Apps' },
-    { icon: Sparkles, label: 'Creative Design', desc: 'UI/UX Focus' },
-  ];
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    show: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 50, damping: 20 } }
+  };
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-background text-foreground relative overflow-hidden">
-      {/* Background Effects */}
-      <div
-        className="absolute inset-0 bg-grid-pattern opacity-[0.02]"
-      />
-      <div
-        className="absolute top-1/4 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-      />
-      <div
-        className="absolute bottom-1/4 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-      />
-      <div
-        className="absolute top-1/2 left-1/4 w-64 h-64 bg-primary/8 rounded-full blur-3xl pointer-events-none"
-      />
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden selection:bg-primary/20">
+      {/* Dynamic Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow" />
+      </div>
 
-      {/* Header */}
-      <header
-        className="relative z-10 p-6 md:p-8"
-      >
+      {/* Navigation */}
+      <nav className="relative z-50 p-6 md:p-10 flex justify-between items-center">
         <button
           onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
+          className="group flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors px-4 py-2 rounded-full bg-background/50 backdrop-blur-md border border-border/40 hover:border-primary/50"
         >
-          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          <span className="font-medium">Back to Home</span>
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform ease-out-expo" />
+          <span className="text-sm font-medium">Return Home</span>
         </button>
-      </header>
+      </nav>
 
-      {/* Main Content */}
-      <main className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 pb-20">
-        {/* Hero Section */}
-        <div
-          className="text-center mb-16"
+      <main className="relative z-10 container mx-auto px-6 pb-24 max-w-6xl">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-12 gap-6"
+          variants={container}
+          initial="hidden"
+          animate="show"
         >
-          {/* Avatar */}
-          <div
-            className="relative inline-block mb-8"
-          >
-            <div
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-primary via-primary/80 to-primary/60 p-1"
-            >
-              <img
-                src={arshAvatar}
-                alt="Arsh Verma"
-                className="w-full h-full rounded-full object-cover"
-              />
-            </div>
-            <div
-              className="absolute -bottom-2 -right-2 w-10 h-10 bg-green-500 rounded-full border-4 border-background flex items-center justify-center"
-            >
-              <span
-                className="text-xs font-bold text-white"
-              >
-                ✓
-              </span>
-            </div>
-          </div>
+          {/* Header Section - Full Width */}
+          <motion.div variants={item} className="col-span-1 md:col-span-12 mb-8 text-center md:text-left">
+            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
+              Building <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">Digital Needs</span>
+              <br />
+              <span className="text-muted-foreground/40">Into Reality.</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
+              I'm <span className="text-foreground font-semibold">Arsh Verma</span>. I blend creative vision with engineering precision to craft digital experiences that feel alive.
+            </p>
+          </motion.div>
 
-          <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
-          >
-            Arsh Verma
-          </h1>
-
-          <p
-            className="text-xl md:text-2xl text-primary font-medium mb-2"
-          >
-            Full-Stack Digital Creator
-          </p>
-
-          <p
-            className="text-muted-foreground"
-          >
-            Tech Gaming Technology @ VIT Bhopal
-          </p>
-        </div>
-
-        {/* Skills Cards */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12"
-        >
-          {skills.map((skill) => (
-            <div
-              key={skill.label}
-              className="p-6 rounded-2xl border border-border bg-card/50 backdrop-blur-sm text-center group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-2"
-            >
-              <div
-                className="w-14 h-14 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:rotate-6 transition-all"
-              >
-                <skill.icon className="w-7 h-7 text-primary" />
+          {/* Profile Card - Large */}
+          <motion.div variants={item} className="col-span-1 md:col-span-5 row-span-2 relative group overflow-hidden rounded-[2.5rem] border border-border/50 bg-card/30 backdrop-blur-xl">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-10" />
+            <img 
+              src={arshAvatar} 
+              alt="Arsh Verma" 
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold border border-green-500/20 mb-4 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                Open for Collaboration
               </div>
-              <h3 className="font-semibold mb-1">{skill.label}</h3>
-              <p className="text-sm text-muted-foreground">{skill.desc}</p>
+              <h2 className="text-3xl font-bold text-white mb-2">Arsh Verma</h2>
+              <p className="text-white/80 flex items-center gap-2">
+                <MapPin className="w-4 h-4" /> San Francisco, CA (Remote)
+              </p>
             </div>
-          ))}
-        </div>
+          </motion.div>
 
-        {/* Bio Section */}
-        <div
-          className="relative p-8 md:p-10 rounded-3xl border border-border bg-card/30 backdrop-blur-sm mb-12 overflow-hidden"
-        >
-          <div
-            className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"
-          />
+          {/* Education Card */}
+          <motion.div variants={item} className="col-span-1 md:col-span-4 p-8 rounded-[2.5rem] border border-border/50 bg-card/30 backdrop-blur-md flex flex-col justify-between group hover:border-primary/50 transition-colors">
+            <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+              <GraduationCap className="w-7 h-7 text-blue-500" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-2">Education</h3>
+              <p className="text-xl font-semibold mb-1">Tech Gaming Technology</p>
+              <p className="text-blue-500 font-medium">VIT Bhopal University</p>
+            </div>
+          </motion.div>
 
-          <div
-            className="absolute top-0 left-8 -translate-y-1/2 px-4 py-1 bg-background border border-border rounded-full"
-          >
-            <span className="text-sm font-medium text-primary">About Me</span>
-          </div>
+          {/* Role Card */}
+          <motion.div variants={item} className="col-span-1 md:col-span-3 p-8 rounded-[2.5rem] border border-border/50 bg-card/30 backdrop-blur-md flex flex-col justify-between group hover:border-purple-500/50 transition-colors">
+             <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+              <Code2 className="w-7 h-7 text-purple-500" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-2">Focus</h3>
+              <p className="text-xl font-semibold">Full-Stack &amp;</p>
+              <p className="text-purple-500 font-medium">Game Development</p>
+            </div>
+          </motion.div>
 
-          <div
-            className="space-y-6 text-lg leading-relaxed text-muted-foreground relative z-10"
-          >
-            <p>
-              I'm <span className="text-foreground font-medium">Arsh Verma</span>, a Tech Gaming Technology student at{' '}
-              <span className="text-primary">VIT Bhopal</span> and a full-stack digital creator. My expertise lies in
-              game development with <span className="text-foreground font-medium">Unity</span>, but I also build dynamic
-              websites and apps. I've earned numerous certifications and treat every project, like my portfolio{' '}
-              <span className="text-primary font-medium">arshcreates</span>, as an opportunity to blend creative vision
-              with technical precision.
-            </p>
+          {/* Skills Marquee / Grid */}
+          <motion.div variants={item} className="col-span-1 md:col-span-7 p-8 rounded-[2.5rem] border border-border/50 bg-card/30 backdrop-blur-md">
+            <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+              <Cpu className="w-5 h-5 text-primary" /> Technical Arsenal
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {[
+                { label: 'Unity 3D', icon: Gamepad2, color: 'text-white' },
+                { label: 'React / Next.js', icon: Globe, color: 'text-blue-400' },
+                { label: 'TypeScript', icon: Code2, color: 'text-blue-600' },
+                { label: 'UI/UX Design', icon: Sparkles, color: 'text-pink-500' },
+                { label: 'Node.js', icon: Cpu, color: 'text-green-500' },
+              ].map((s, i) => (
+                <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-background/40 border border-border/20">
+                  <s.icon className={`w-5 h-5 ${s.color}`} />
+                  <span className="font-medium text-sm">{s.label}</span>
+                </div>
+              ))}
+              <div className="flex items-center justify-center p-3 rounded-xl bg-primary/10 border border-primary/20">
+                <span className="font-bold text-sm text-primary">+ Many More</span>
+              </div>
+            </div>
+          </motion.div>
 
-            <p>
-              My development philosophy is simple:{' '}
-              <span className="text-foreground font-medium italic">
-                turn great ideas into polished, engaging digital reality
-              </span>
-              . I love the challenge of coding and design, focusing on creating seamless user experiences across all
-              platforms. Take a look around—I'm ready to tackle the next big project!
-            </p>
-          </div>
-        </div>
+          {/* Philosophy Card */}
+          <motion.div variants={item} className="col-span-1 md:col-span-12 p-10 rounded-[2.5rem] border border-border/50 bg-gradient-to-br from-card/50 to-background backdrop-blur-md relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-[20%] bg-primary/5 blur-3xl rounded-full pointer-events-none group-hover:bg-primary/10 transition-colors duration-700" />
+            
+            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-10">
+              <div className="flex-1 space-y-6">
+                <h2 className="text-3xl md:text-4xl font-display font-bold">
+                  "I don't just write code.<br />I engineer <span className="text-primary">emotions</span>."
+                </h2>
+                <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
+                  My philosophy is simple: technology should feel invisible. Whether it's a complex game mechanic or a seamless web authentication flow, the user should only feel the magic, not the machine. I strive for perfection in every pixel and logic gate.
+                </p>
+                <div className="pt-4 flex flex-wrap gap-4">
+                  <MagneticButton 
+                    variant="primary" 
+                    onClick={() => window.open('https://github.com/ArshVermaGit', '_blank')}
+                    className="gap-3"
+                  >
+                    <Github className="w-5 h-5" /> Visit GitHub
+                  </MagneticButton>
+                  <MagneticButton 
+                    variant="secondary"
+                    onClick={() => window.open('https://www.linkedin.com/in/arshvermadev/', '_blank')}
+                    className="gap-3"
+                  >
+                    <Linkedin className="w-5 h-5 text-blue-500" /> LinkedIn
+                  </MagneticButton>
+                  <MagneticButton 
+                    variant="ghost" 
+                    onClick={() => window.open('https://x.com/TheArshVerma', '_blank')}
+                    className="gap-3"
+                  >
+                    <Twitter className="w-5 h-5 text-sky-400" /> 
+                  </MagneticButton>
+                  <MagneticButton 
+                    variant="ghost"
+                    onClick={() => window.location.href = 'mailto:arshverma.dev@gmail.com'} 
+                    className="gap-3"
+                  >
+                    <Mail className="w-5 h-5 text-red-400" /> 
+                  </MagneticButton>
+                </div>
+              </div>
+              
+              <div className="hidden md:flex flex-col gap-4 min-w-[200px]">
+                <div className="p-6 rounded-3xl bg-background/50 border border-border/50 backdrop-blur-sm">
+                  <div className="text-4xl font-bold mb-1">3+</div>
+                  <div className="text-sm text-muted-foreground uppercase tracking-wider font-medium">Years Exp</div>
+                </div>
+                <div className="p-6 rounded-3xl bg-background/50 border border-border/50 backdrop-blur-sm">
+                  <div className="text-4xl font-bold mb-1">50+</div>
+                  <div className="text-sm text-muted-foreground uppercase tracking-wider font-medium">Projects</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
-        {/* Social Links */}
-        <div
-          className="text-center"
-        >
-          <h3
-            className="text-lg font-semibold mb-6"
-          >
-            Let's Connect
-          </h3>
-          <div
-            className="flex flex-wrap justify-center gap-4"
-          >
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center gap-3 px-6 py-3 rounded-xl border border-border bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1.5 ${link.color}`}
-              >
-                <link.icon className="w-5 h-5" />
-                <span className="font-medium">{link.label}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div
-          className="text-center mt-16"
-        >
-          <MagneticButton variant="primary" size="lg" onClick={() => navigate('/')}>
-            Try RAW.AI
-          </MagneticButton>
-        </div>
+          {/* CTA / Footer of About */}
+          <motion.div variants={item} className="col-span-1 md:col-span-12 mt-12 text-center">
+            <p className="text-muted-foreground mb-6">Want to create something amazing together?</p>
+            <MagneticButton size="xl" onClick={() => navigate('/contact')}>
+              Let's Talk <ChevronRight className="w-4 h-4 ml-1" />
+            </MagneticButton>
+          </motion.div>
+        </motion.div>
       </main>
     </div>
   );
