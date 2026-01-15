@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { MagneticButton } from '@/components/MagneticButton';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useModals } from '@/hooks/use-modals';
@@ -31,7 +31,7 @@ interface DetectionResult {
 }
 
 export const AIDetector = () => {
-  const { toast } = useToast();
+  // removed useToast
   const [inputText, setInputText] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<DetectionResult | null>(null);
@@ -49,10 +49,8 @@ export const AIDetector = () => {
 
   const handleAnalyze = async () => {
     if (!inputText.trim()) {
-      toast({
-        title: "Empty input",
+      toast.error("Empty input", {
         description: "Please enter some text to analyze.",
-        variant: "destructive",
       });
       return;
     }
@@ -65,10 +63,8 @@ export const AIDetector = () => {
     }
 
     if (wordCount < 30) {
-      toast({
-        title: "Text too short",
+      toast.error("Text too short", {
         description: "Please enter at least 30 words for accurate detection.",
-        variant: "destructive",
       });
       return;
     }
@@ -99,17 +95,14 @@ export const AIDetector = () => {
         });
         localStorage.setItem('hasShownDetectorFeedback', 'true');
       } else {
-        toast({
-          title: "Scan Finished",
+        toast.info("Scan Finished", {
           description: `This looks like it has a ${data.overallScore}% chance of being AI.`,
         });
       }
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to analyze text.';
-      toast({
-        title: "Error",
+      toast.error("Error", {
         description: errorMessage,
-        variant: "destructive",
       });
     } finally {
       setIsAnalyzing(false);
@@ -130,7 +123,7 @@ export const AIDetector = () => {
     await navigator.clipboard.writeText(reportText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-    toast({ title: "Copied!", description: "Report copied to clipboard." });
+    toast.success("Copied!", { description: "Report copied to clipboard." });
   };
 
   const handleTrySample = () => {
