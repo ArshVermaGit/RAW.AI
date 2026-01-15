@@ -22,7 +22,7 @@ const Contact = () => {
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
 
       {/* Header */}
-      <header className="relative z-10 p-6 md:p-8">
+      <header className="relative z-10 p-4 md:p-8">
         <button
           onClick={() => navigate('/')}
           className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
@@ -33,16 +33,16 @@ const Contact = () => {
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 pb-20">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h1>
-          <p className="text-xl text-muted-foreground">We'd love to hear from you. Our team is always here to help.</p>
+      <main className="relative z-10 max-w-4xl mx-auto px-4 md:px-8 pb-20">
+        <div className="text-center mb-12 md:mb-16">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">Get in Touch</h1>
+          <p className="text-lg md:text-xl text-muted-foreground">We'd love to hear from you. Our team is always here to help.</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Info */}
-          <div className="space-y-8">
-            <div className="p-8 rounded-3xl border border-border bg-card/30 backdrop-blur-sm">
+          <div className="space-y-6 md:space-y-8">
+            <div className="p-6 md:p-8 rounded-3xl border border-border bg-card/30 backdrop-blur-sm">
               <h3 className="text-xl font-bold mb-6">Contact Information</h3>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -77,7 +77,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="p-8 rounded-3xl border border-border bg-card/30 backdrop-blur-sm space-y-6">
+          <form onSubmit={handleSubmit} className="p-6 md:p-8 rounded-3xl border border-border bg-card/30 backdrop-blur-sm space-y-6">
             <div className="space-y-2">
               <label className="text-sm font-medium">Name</label>
               <Input placeholder="Your name" className="bg-background/50" />
