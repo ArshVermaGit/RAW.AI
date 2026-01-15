@@ -82,6 +82,7 @@ const ALL_PLANS = [
     id: 'pro',
     name: 'Pro',
     price: '$5',
+    originalPrice: '$10',
     description: 'Perfect for serious writers',
     features: [
       'Write unlimited words',
@@ -99,6 +100,7 @@ const ALL_PLANS = [
     id: 'ultra',
     name: 'Ultra',
     price: '$10',
+    originalPrice: '$20',
     description: 'For teams and power users',
     features: [
       'Everything in Pro',
@@ -298,7 +300,12 @@ export const UpgradeModal = ({ isOpen, onClose, onSuccess }: UpgradeModalProps) 
                 <div className="mb-8 pb-8 border-b border-current/10">
                   <div className="flex items-baseline gap-2">
                     <span className="text-6xl font-black font-display">{plan.price}</span>
-                    {plan.id !== 'free' && <span className={cn("text-base font-bold", isPro ? "text-neutral-400" : "text-neutral-500")}>/mo</span>}
+                    {plan.id !== 'free' && (
+                      <div className="flex flex-col">
+                        {'originalPrice' in plan && <span className={cn("text-sm line-through leading-none opacity-50", isPro ? "text-neutral-500" : "text-neutral-400")}>{plan.originalPrice}</span>}
+                        <span className={cn("text-base font-bold", isPro ? "text-neutral-400" : "text-neutral-500")}>/mo</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
