@@ -154,7 +154,8 @@ function generateSummary(score: number, patterns: DetectionResult["patterns"], s
   }
 }
 
-Deno.serve(async (req) => {
+// @ts-expect-error - Deno namespace is available in the runtime environment
+Deno.serve(async (req: Request) => {
   // Handle CORS preflight
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
