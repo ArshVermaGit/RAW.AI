@@ -127,7 +127,7 @@ const Auth = () => {
             whileTap={{ scale: 0.98 }}
           >
             <div className="w-14 h-14 bg-foreground rounded-2xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
-              <img src="/logo.png" alt="RAW.AI" className="w-12 h-12 object-contain invert dark:invert-0 relative z-10" />
+              <img src="/logo.png" alt="RAW.AI" className="w-10 h-10 object-contain invert dark:invert-0 relative z-10" />
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <span className="font-display font-bold text-3xl tracking-tight">
