@@ -1,31 +1,13 @@
-import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { User, Camera, Loader2, Mail, Save } from 'lucide-react';
+import { User, Mail, Pencil, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { useAuth } from '@/hooks/useAuth';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { useModals } from '@/hooks/use-modals';
 import { cn } from '@/lib/utils';
 
 export const ProfileEditor = () => {
-  const { user, profile, refreshProfile } = useAuth();
-  const { toast } = useToast();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [fullName, setFullName] = useState('');
-  const [username, setUsername] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
-
-  useEffect(() => {
-    if (profile) {
-      setFullName(profile.full_name || '');
-      setUsername(profile.username || '');
-      setAvatarUrl(profile.avatar_url);
-    }
-  }, [profile]);
+  const { user, profile } = useAuth();
+  const { openModal } = useModals();
 
   const getPlanBadge = (plan: string) => {
     const styles = {
@@ -33,110 +15,6 @@ export const ProfileEditor = () => {
       ultra: 'bg-purple-500/20 text-purple-500',
     };
     return styles[plan as keyof typeof styles] || 'bg-muted text-muted-foreground';
-  };
-
-  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !user) return;
-
-    if (!file.type.startsWith('image/')) {
-      toast({
-        title: 'Invalid file',
-        description: 'Please upload an image file.',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    if (file.size > 2 * 1024 * 1024) {
-      toast({
-        title: 'File too large',
-        description: 'Please upload an image smaller than 2MB.',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    setIsUploading(true);
-
-    try {
-      const fileExt = file.name.split('.').pop();
-      const filePath = `${user.id}/avatar.${fileExt}`;
-
-      if (avatarUrl) {
-        const oldPath = avatarUrl.split('/').slice(-2).join('/');
-        await supabase.storage.from('avatars').remove([oldPath]);
-      }
-
-      const { error: uploadError } = await supabase.storage
-        .from('avatars')
-        .upload(filePath, file, { upsert: true });
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(filePath);
-
-      setAvatarUrl(publicUrl);
-
-      const { error: updateError } = await supabase
-        .from('profiles')
-        .update({ avatar_url: publicUrl })
-        .eq('id', user.id);
-
-      if (updateError) throw updateError;
-
-      await refreshProfile();
-
-      toast({
-        title: '✨ Avatar updated!',
-        description: 'Your profile picture has been changed.',
-      });
-    } catch (error) {
-      console.error('Upload error:', error);
-      toast({
-        title: 'Upload failed',
-        description: 'Could not upload avatar. Please try again.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleSave = async () => {
-    if (!user) return;
-
-    setIsSaving(true);
-
-    try {
-      const { error } = await supabase
-        .from('profiles')
-        .update({
-          full_name: fullName,
-          username: username,
-        })
-        .eq('id', user.id);
-
-      if (error) throw error;
-
-      await refreshProfile();
-
-      toast({
-        title: '✓ Profile saved!',
-        description: 'Your changes have been saved.',
-      });
-    } catch (error) {
-      console.error('Save error:', error);
-      toast({
-        title: 'Save failed',
-        description: 'Could not save profile. Please try again.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsSaving(false);
-    }
   };
 
   return (
@@ -158,16 +36,15 @@ export const ProfileEditor = () => {
       <div className="relative bg-card/80 backdrop-blur-xl border border-border/30 rounded-2xl p-6 md:p-8">
         {/* Avatar Section */}
         <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 mb-8 pb-8 border-b border-border/30">
-          <div className="relative">
+          <div className="relative group cursor-pointer" onClick={() => openModal('edit-photo')}>
             <div
               className={cn(
-                "w-24 h-24 rounded-full bg-secondary flex items-center justify-center overflow-hidden",
-                isUploading && "opacity-50"
+                "w-24 h-24 rounded-full bg-secondary flex items-center justify-center overflow-hidden transition-opacity group-hover:opacity-80"
               )}
             >
-              {avatarUrl ? (
+              {profile?.avatar_url ? (
                 <img
-                  src={avatarUrl}
+                  src={profile.avatar_url}
                   alt="Avatar"
                   className="w-full h-full object-cover"
                 />
@@ -175,27 +52,12 @@ export const ProfileEditor = () => {
                 <User className="w-10 h-10 text-muted-foreground" />
               )}
             </div>
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isUploading}
-              className="absolute -bottom-1 -right-1 w-8 h-8 bg-foreground text-background rounded-full flex items-center justify-center hover:bg-foreground/90 transition-colors"
-            >
-              {isUploading ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <Camera className="w-4 h-4" />
-              )}
-            </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarUpload}
-              className="hidden"
-            />
+            <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-foreground text-background rounded-full flex items-center justify-center hover:bg-foreground/90 transition-colors shadow-lg">
+              <Camera className="w-4 h-4" />
+            </div>
           </div>
 
-          <div className="text-center sm:text-left">
+          <div className="text-center sm:text-left flex-1">
             <div className="flex items-center gap-2 justify-center sm:justify-start">
               <h2 className="text-xl font-bold">{profile?.full_name || 'User'}</h2>
               {profile?.subscribed_plan !== 'free' && (
@@ -214,52 +76,33 @@ export const ProfileEditor = () => {
           </div>
         </div>
 
-        {/* Form Fields */}
+        {/* Profile Details Read-Only View */}
         <div className="space-y-6">
           <div className="grid sm:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Full Name</label>
-              <Input
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="John Doe"
-                className="bg-secondary/50 h-12"
-              />
+            <div className="space-y-2 p-4 rounded-xl bg-secondary/20 border border-border/10">
+              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Full Name</label>
+              <div className="font-medium text-lg">{profile?.full_name || 'Not set'}</div>
             </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Username</label>
-              <Input
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="johndoe"
-                className="bg-secondary/50 h-12"
-              />
+            <div className="space-y-2 p-4 rounded-xl bg-secondary/20 border border-border/10">
+              <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Username</label>
+              <div className="font-medium text-lg">{profile?.username || 'Not set'}</div>
             </div>
           </div>
 
           <div className="space-y-2">
             <label className="text-sm font-medium">Email</label>
-            <Input
-              value={user?.email || ''}
-              disabled
-              className="bg-secondary/30 h-12 text-muted-foreground truncate"
-            />
-            <p className="text-xs text-muted-foreground">Email cannot be changed</p>
+            <div className="p-4 rounded-xl bg-secondary/30 border border-border/10 text-muted-foreground flex justify-between items-center">
+                <span>{user?.email}</span>
+                <span className="text-xs px-2 py-1 bg-background/50 rounded text-muted-foreground">Cannot Change</span>
+            </div>
           </div>
 
           <Button
-            onClick={handleSave}
-            disabled={isSaving}
+            onClick={() => openModal('edit-profile')}
             className="w-full sm:w-auto h-12 px-8 rounded-full bg-foreground text-background hover:bg-foreground/90"
           >
-            {isSaving ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
-            ) : (
-              <>
-                <Save className="w-5 h-5 mr-2" />
-                Save Changes
-              </>
-            )}
+            <Pencil className="w-4 h-4 mr-2" />
+            Edit Profile
           </Button>
         </div>
       </div>
