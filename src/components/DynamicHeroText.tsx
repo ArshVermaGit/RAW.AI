@@ -1,6 +1,6 @@
-import { motion, Variants, useScroll, useTransform, useSpring } from 'framer-motion';
-import { PenLine, Feather, Quote, Globe, Heart, Sparkles } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { motion, Variants, useScroll, useTransform } from 'framer-motion';
+import { Feather, Quote, Globe, Heart } from 'lucide-react';
+import { useRef } from 'react';
 
 export const DynamicHeroText = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -9,7 +9,6 @@ export const DynamicHeroText = () => {
   // Organic parallax effects
   const y1 = useTransform(scrollY, [0, 500], [0, 100]);
   const y2 = useTransform(scrollY, [0, 500], [0, -50]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   const containerVars: Variants = {
     initial: { opacity: 0 },
@@ -102,7 +101,7 @@ export const DynamicHeroText = () => {
                { icon: Feather, label: 'Natural Flow', desc: 'Rhythm in every sentence' },
                { icon: Heart, label: 'Handcrafted', desc: 'No robotic patterns' },
                { icon: Globe, label: 'Global Voice', desc: 'Speaks every language' }
-             ].map((feature, i) => (
+             ].map((feature) => (
                <motion.div 
                  key={feature.label}
                  variants={itemVars}
