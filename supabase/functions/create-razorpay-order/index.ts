@@ -28,7 +28,7 @@ serve(async (req: Request) => {
   }
 
   try {
-    const { plan, email, userId }: OrderRequest = await req.json();
+    const { plan, email }: OrderRequest = await req.json();
 
     if (!plan || !email) {
       console.error("Missing required fields:", { plan, email });
@@ -89,7 +89,7 @@ serve(async (req: Request) => {
       );
     }
 
-    console.log(`Creating Razorpay order for ${plan} plan, amount: ${amount} cents, user: ${user.id}`);
+    console.error(`Creating Razorpay order for ${plan} plan, amount: ${amount} cents, user: ${user.id}`);
 
     // Create Razorpay order
     const orderData = {
@@ -123,7 +123,7 @@ serve(async (req: Request) => {
     }
 
     const order = await razorpayResponse.json();
-    console.log("Razorpay order created:", order.id);
+    console.error("Razorpay order created:", order.id);
 
     // Store the order in database
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
