@@ -17,7 +17,9 @@ export type ModalType =
   | 'delete-confirm'
   | 'welcome-new'
   | 'generic-success' 
-  | 'generic-error';
+  | 'generic-error'
+  | 'edit-profile'
+  | 'edit-photo';
 
 interface ModalState {
   isOpen: boolean;
