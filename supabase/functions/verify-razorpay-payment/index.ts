@@ -48,7 +48,7 @@ serve(async (req: Request) => {
       );
     }
 
-    console.log("Verifying payment:", { razorpay_order_id, razorpay_payment_id });
+    console.error("Verifying payment:", { razorpay_order_id, razorpay_payment_id });
 
     // Verify signature
     const body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -80,7 +80,7 @@ serve(async (req: Request) => {
       );
     }
 
-    console.log("Signature verified successfully");
+    console.error("Signature verified successfully");
 
     // Update subscription status in database
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
@@ -120,11 +120,11 @@ serve(async (req: Request) => {
       if (profileError) {
         console.error("Error updating profile plan:", profileError);
       } else {
-        console.log(`Updated user ${subscription.user_id} to ${subscription.plan} plan`);
+        console.error(`Updated user ${subscription.user_id} to ${subscription.plan} plan`);
       }
     }
 
-    console.log("Payment verified and subscription updated");
+    console.error("Payment verified and subscription updated");
 
     return new Response(
       JSON.stringify({
