@@ -6,35 +6,44 @@ labels: bug
 assignees: ""
 ---
 
-**Describe the bug**
+## 🐛 Bug Description
+
 A clear and concise description of what the bug is.
 
-**To Reproduce**
-Steps to reproduce the behavior:
+## 🔁 Reproduction Steps
 
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+## 😯 Expected Behavior
+
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## 📸 Screenshots/Recordings
 
-**Desktop (please complete the following information):**
+If applicable, add screenshots or screen recordings to help explain your problem.
 
-- OS: [e.g. iOS]
-- Browser: [e.g. chrome, safari]
-- Version: [e.g. 22]
+## 💻 Environment
 
-**Smartphone (please complete the following information):**
+- **OS:** [e.g. macOS 14.2, Windows 11]
+- **Browser:** [e.g. Chrome 120, Safari 17]
+- **App Version:** [e.g. v1.0.0]
 
-- Device: [e.g. iPhone6]
-- OS: [e.g. iOS8.1]
-- Browser: [e.g. stock browser, safari]
-- Version: [e.g. 22]
+## 📜 Logs
 
-**Additional context**
-Add any other context about the problem here.
+<details>
+<summary>Click to expand logs</summary>
+
+```
+Paste any relevant console logs or error messages here.
+```
+
+</details>
+
+## 📋 Checklist
+
+- [ ] I have checked the existing issues and this is not a duplicate.
+- [ ] I have provided all necessary information to reproduce the issue.
+- [ ] I am willing to submit a PR to fix this issue (optional).
