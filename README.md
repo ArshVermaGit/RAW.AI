@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://rawai-arshvermagit.vercel.app/logo.png" alt="RAW.AI Logo" width="120" />
+<img src="public/logo.png" alt="RAW.AI Logo" width="120" />
 
 # RAW.AI
 
