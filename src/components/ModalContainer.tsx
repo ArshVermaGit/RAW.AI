@@ -1,9 +1,10 @@
 import React from 'react';
 import { useModals } from '@/hooks/use-modals';
 import { FeedbackModal } from '@/components/FeedbackModal';
-import { UpgradeModal } from '@/components/UpgradeModal';
 import { EditProfileModal } from '@/components/profile/EditProfileModal';
 import { EditPhotoModal } from '@/components/profile/EditPhotoModal';
+import { ProPlanModal } from '@/components/modals/ProPlanModal';
+import { UltraPlanModal } from '@/components/modals/UltraPlanModal';
 
 export const ModalContainer = () => {
   const { modalState, closeModal } = useModals();
@@ -20,11 +21,20 @@ export const ModalContainer = () => {
         message={modalState.message}
         onConfirm={modalState.onConfirm}
       />
-      {modalState.isOpen && isUpgradePlan && (
-        <UpgradeModal
+      {modalState.isOpen && modalState.type === 'pricing-pro' && (
+        <ProPlanModal
           isOpen={true}
           onClose={closeModal}
-          plan={modalState.type === 'pricing-pro' ? 'pro' : 'ultra'}
+          onSuccess={() => {
+            closeModal();
+            // Optional: Show success feedback after upgrade
+          }}
+        />
+      )}
+      {modalState.isOpen && modalState.type === 'pricing-ultra' && (
+        <UltraPlanModal
+          isOpen={true}
+          onClose={closeModal}
           onSuccess={() => {
             closeModal();
             // Optional: Show success feedback after upgrade
