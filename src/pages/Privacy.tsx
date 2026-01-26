@@ -97,7 +97,7 @@ const Privacy = () => {
           </div>
 
           <div className="pt-8 border-t border-border/30 text-center text-muted-foreground">
-            <p>Questions? Contact us at support@raw.ai</p>
+            <p>Questions? Contact us at arshverma.dev@gmail.com</p>
           </div>
         </motion.div>
       </main>
