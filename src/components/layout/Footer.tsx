@@ -40,7 +40,8 @@ export const Footer = () => {
                 links: [
                   { label: 'About Us', action: () => navigate('/about') },
                   { label: 'Contact', action: () => navigate('/contact') },
-                  { label: 'FAQ', action: () => navigate('/faq') }
+                  { label: 'FAQ', action: () => navigate('/faq') },
+                  { label: 'Support', action: () => navigate('/support') }
                 ] 
               },
               { 
@@ -48,7 +49,9 @@ export const Footer = () => {
                 links: [
                   { label: 'Privacy Policy', action: () => navigate('/privacy') }, 
                   { label: 'Terms of Service', action: () => navigate('/terms') },
-                  { label: 'Refund Policy', action: () => navigate('/refund-policy') }
+                  { label: 'Refund Policy', action: () => navigate('/refund-policy') },
+                  { label: 'Disclaimer', action: () => navigate('/disclaimer') },
+                  { label: 'Cookie Policy', action: () => navigate('/cookie-policy') }
                 ] 
               },
             ].map((col, i) => (
