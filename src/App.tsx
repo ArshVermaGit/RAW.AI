@@ -23,6 +23,9 @@ import FAQ from "./pages/FAQ";
 import Changelog from "./pages/Changelog";
 import RefundPolicy from "./pages/RefundPolicy";
 import HowItWorks from "./pages/HowItWorks";
+import Disclaimer from "./pages/Disclaimer";
+import CookiePolicy from "./pages/CookiePolicy";
+import Support from "./pages/Support";
 import NotFound from "./pages/NotFound";
 import ErrorPage from "./pages/ErrorPage";
 
@@ -57,8 +60,11 @@ const App = () => (
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/faq" element={<FAQ />} />
                     <Route path="/changelog" element={<Changelog />} />
-                    <Route path="/how-it-works" element={<HowItWorks />} />
+                     <Route path="/how-it-works" element={<HowItWorks />} />
                     <Route path="/refund-policy" element={<RefundPolicy />} />
+                    <Route path="/disclaimer" element={<Disclaimer />} />
+                    <Route path="/cookie-policy" element={<CookiePolicy />} />
+                    <Route path="/support" element={<Support />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="/error" element={<ErrorPage />} />
                     <Route path="*" element={<NotFound />} />
