@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowRight, ArrowLeft, Loader2, ShieldCheck, Zap, Globe } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Loader2, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FloatingParticles } from '@/components/FloatingParticles';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
@@ -109,100 +109,103 @@ const Auth = () => {
       />
 
       <motion.div
-        className="relative w-full max-w-lg z-10"
+        className="relative w-full max-w-md z-10"
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         {/* Logo */}
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
           <motion.div
-            className="inline-flex items-center gap-3 mb-6"
+            className="inline-flex items-center gap-3 mb-8"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-            <div className="w-14 h-14 bg-foreground rounded-2xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
-              <img src="/logo.png" alt="RAW.AI" className="w-10 h-10 object-contain invert dark:invert-0 relative z-10" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="w-12 h-12 bg-foreground rounded-xl flex items-center justify-center shadow-lg relative overflow-hidden">
+              <img src="/logo.png" alt="RAW.AI" className="w-8 h-8 object-contain rounded-lg relative z-10" />
             </div>
-            <span className="font-display font-bold text-3xl tracking-tight">
+            <span className="font-display font-bold text-2xl tracking-tight">
               RAW<span className="text-muted-foreground">.AI</span>
             </span>
           </motion.div>
-          <h1 className="text-2xl md:text-4xl font-bold mb-4 tracking-tight">Welcome back</h1>
-          <p className="text-muted-foreground text-base md:text-lg max-w-sm mx-auto">
-            Join thousands of writers who are making their AI content feel real.
+          <h1 className="text-3xl md:text-5xl font-display font-black mb-4 tracking-tight leading-[1.1]">
+            Hey there! 👋
+          </h1>
+          <p className="text-muted-foreground text-base md:text-lg max-w-xs mx-auto leading-relaxed">
+            Ready to make your writing sound like <span className="text-foreground font-medium">you</span> again?
           </p>
         </motion.div>
 
         {/* Auth Card */}
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-b from-foreground/20 to-transparent rounded-3xl blur-md opacity-50 group-hover:opacity-100 transition-opacity" />
-          <div className="relative bg-card/80 backdrop-blur-2xl border border-border/30 rounded-3xl p-6 md:p-10 shadow-2xl overflow-hidden">
-            {/* Background elements */}
-            <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
-              <Sparkles className="w-32 h-32" />
-            </div>
+        <motion.div 
+          className="relative"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <div className="absolute -inset-1 bg-gradient-to-b from-primary/30 via-primary/10 to-transparent rounded-[2rem] blur-xl opacity-60" />
+          <div className="relative bg-card/60 backdrop-blur-2xl border border-border/40 rounded-[2rem] p-8 shadow-2xl">
+            
+            {/* Decorative corner accents */}
+            <div className="absolute top-3 left-3 w-8 h-8 border-l-2 border-t-2 border-primary/30 rounded-tl-xl" />
+            <div className="absolute bottom-3 right-3 w-8 h-8 border-r-2 border-b-2 border-primary/30 rounded-br-xl" />
 
-            <div className="space-y-8 relative z-10">
-              <div className="grid grid-cols-1 gap-4">
-                {[
-                  { icon: ShieldCheck, text: "Designed to feel 100% human" },
-                  { icon: Zap, text: "Quick and easy results" },
-                  { icon: Globe, text: "Works in every language" }
-                ].map((item, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 + (i * 0.1) }}
-                    className="flex items-center gap-3 text-sm text-foreground/70 font-medium"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-foreground/5 flex items-center justify-center">
-                      <item.icon className="w-3.5 h-3.5" />
-                    </div>
-                    {item.text}
-                  </motion.div>
-                ))}
+            <div className="space-y-6">
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground">
+                  One click. That's it.
+                </p>
               </div>
 
-              <div className="pt-4">
-                <Button
-                  type="button"
-                  variant="default"
-                  size="xl"
-                  className="w-full h-16 rounded-2xl bg-foreground text-background hover:bg-foreground/90 gap-4 text-lg font-bold shadow-xl group/btn"
-                  onClick={handleGoogleSignIn}
-                  disabled={isGoogleLoading}
-                >
-                  {isGoogleLoading ? (
-                    <Loader2 className="w-6 h-6 animate-spin" />
-                  ) : (
-                    <>
-                      <div className="bg-white p-1 rounded-lg">
-                        <GoogleIcon />
-                      </div>
-                      <span>Continue with Google</span>
-                      <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
-                    </>
-                  )}
-                </Button>
-                <p className="text-center text-[10px] uppercase tracking-[0.2em] font-black text-muted-foreground/40 mt-6">
-                  Secure login with Google
-                </p>
+              <Button
+                type="button"
+                variant="default"
+                size="xl"
+                className="w-full h-14 rounded-xl bg-foreground text-background hover:bg-foreground/90 gap-3 text-base font-bold shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98]"
+                onClick={handleGoogleSignIn}
+                disabled={isGoogleLoading}
+              >
+                {isGoogleLoading ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <>
+                    <div className="bg-white p-1.5 rounded-lg">
+                      <GoogleIcon />
+                    </div>
+                    <span>Continue with Google</span>
+                    <ArrowRight className="w-4 h-4 ml-auto" />
+                  </>
+                )}
+              </Button>
+
+              <div className="flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest font-semibold text-muted-foreground/50">
+                <ShieldCheck className="w-3 h-3" />
+                <span>Secure & Private</span>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Social proof / trust element */}
+        <motion.div
+          className="mt-8 text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          <p className="text-sm text-muted-foreground/60">
+            Trusted by <span className="text-foreground font-semibold">2,000+</span> writers
+          </p>
+        </motion.div>
 
         {/* Footer */}
         <motion.div
-          className="mt-12 text-center"
+          className="mt-8 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
