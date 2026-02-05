@@ -7,27 +7,33 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ModalProvider } from "@/hooks/use-modals";
-import { ModalContainer } from "@/components/ModalContainer";
-import ScrollToTop from "@/components/ScrollToTop";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import { ModalContainer, ScrollToTop, ErrorBoundary } from "@/components/common";
+import { CookieConsentModal } from "@/components/common/CookieConsentModal";
 import { Loading } from "@/components/ui/Loading";
-import Index from "./pages/Index";
-import Auth from "./pages/Auth";
-import Profile from "./pages/Profile";
-import Onboarding from "./pages/Onboarding";
-import About from "./pages/About";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import Contact from "./pages/Contact";
-import FAQ from "./pages/FAQ";
-import Changelog from "./pages/Changelog";
-import RefundPolicy from "./pages/RefundPolicy";
-import HowItWorks from "./pages/HowItWorks";
-import Disclaimer from "./pages/Disclaimer";
-import CookiePolicy from "./pages/CookiePolicy";
-import Support from "./pages/Support";
-import NotFound from "./pages/NotFound";
-import ErrorPage from "./pages/ErrorPage";
+import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
+import { lazy } from "react";
+
+const Index = lazy(() => import("./pages/Index"));
+const Auth = lazy(() => import("./pages/Auth"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Onboarding = lazy(() => import("./pages/Onboarding"));
+const About = lazy(() => import("./pages/About"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Contact = lazy(() => import("./pages/Contact"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const Changelog = lazy(() => import("./pages/Changelog"));
+const RefundPolicy = lazy(() => import("./pages/RefundPolicy"));
+const PaymentPolicy = lazy(() => import("./pages/PaymentPolicy"));
+const HowItWorks = lazy(() => import("./pages/HowItWorks"));
+const Disclaimer = lazy(() => import("./pages/Disclaimer"));
+const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
+const Security = lazy(() => import("./pages/Security"));
+const AccessibilityStatement = lazy(() => import("./pages/AccessibilityStatement"));
+const Support = lazy(() => import("./pages/Support"));
+const Sitemap = lazy(() => import("./pages/Sitemap"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const ErrorPage = lazy(() => import("./pages/ErrorPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,14 +52,30 @@ const App = () => (
             <TooltipProvider>
               <Sonner />
               <ModalContainer />
+              <CookieConsentModal />
               <BrowserRouter>
                 <ScrollToTop />
                 <Suspense fallback={<Loading />}>
                   <Routes>
+
                     <Route path="/" element={<Index />} />
                     <Route path="/auth" element={<Auth />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/onboarding" element={<Onboarding />} />
+                    <Route 
+                      path="/profile" 
+                      element={
+                        <ProtectedRoute>
+                          <Profile />
+                        </ProtectedRoute>
+                      } 
+                    />
+                    <Route 
+                      path="/onboarding" 
+                      element={
+                        <ProtectedRoute>
+                          <Onboarding />
+                        </ProtectedRoute>
+                      } 
+                    />
                     <Route path="/about" element={<About />} />
                     <Route path="/privacy" element={<Privacy />} />
                     <Route path="/terms" element={<Terms />} />
@@ -62,9 +84,13 @@ const App = () => (
                     <Route path="/changelog" element={<Changelog />} />
                      <Route path="/how-it-works" element={<HowItWorks />} />
                     <Route path="/refund-policy" element={<RefundPolicy />} />
+                    <Route path="/payment-policy" element={<PaymentPolicy />} />
                     <Route path="/disclaimer" element={<Disclaimer />} />
                     <Route path="/cookie-policy" element={<CookiePolicy />} />
+                    <Route path="/security" element={<Security />} />
+                    <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
                     <Route path="/support" element={<Support />} />
+                    <Route path="/sitemap" element={<Sitemap />} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="/error" element={<ErrorPage />} />
                     <Route path="*" element={<NotFound />} />
