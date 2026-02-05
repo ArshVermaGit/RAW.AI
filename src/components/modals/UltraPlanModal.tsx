@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Check, Sparkles, Shield, Loader2 } from 'lucide-react';
-import { Modal } from '@/components/Modal';
+import { Modal } from '@/components/common/Modal';
 import { MagneticButton } from '@/components/MagneticButton';
 import { cn } from '@/lib/utils';
 import { useRazorpay } from '@/hooks/useRazorpay';
