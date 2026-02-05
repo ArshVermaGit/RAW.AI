@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, Shield, Lock, Eye, Server, FileText } from 'lucide-react';
+import { ArrowLeft, Shield, Lock, Eye, Server, FileText, Globe } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -87,8 +87,23 @@ const Privacy = () => {
 
             <section className="space-y-4">
               <div className="flex items-center gap-3 text-primary">
+                <Globe className="w-6 h-6" />
+                <h2 className="text-2xl font-bold m-0">5. Advertising</h2>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                We may use third-party advertising companies (such as Google AdSense) to serve ads when you visit our website. These companies may use cookies and similar technologies to provide advertisements about goods and services of interest to you.
+              </p>
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites.</li>
+                <li>Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</li>
+                <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Google Ads Settings</a>.</li>
+              </ul>
+            </section>
+
+            <section className="space-y-4">
+              <div className="flex items-center gap-3 text-primary">
                 <FileText className="w-6 h-6" />
-                <h2 className="text-2xl font-bold m-0">5. Your Rights</h2>
+                <h2 className="text-2xl font-bold m-0">6. Your Rights</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed">
                 You have the right to access, correct, or delete your personal data. You can request account deletion at any time through your profile settings or by contacting support.
