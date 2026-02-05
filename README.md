@@ -1,186 +1,128 @@
-<div align="center">
+# RAW.AI 🚀
 
-<img src="public/logo.png" alt="RAW.AI Logo" width="120" />
+![License](https://img.shields.io/github/license/ArshVermaGit/RAW-AI?style=flat-square)
+![Build Status](https://img.shields.io/github/actions/workflow/status/ArshVermaGit/RAW-AI/main.yml?style=flat-square)
+![Version](https://img.shields.io/github/package-json/v/ArshVermaGit/RAW-AI?style=flat-square)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
 
-# RAW.AI
-
-### ⚡ The Gold Standard in AI Text Humanization
-
-**The ultimate linguistic engine for turning synthetic AI-generated text into authentic, high-impact human writing that bypasses all major detection systems.**
-
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_Now-000000?style=for-the-badge&labelColor=333333)](https://rawai-arshvermagit.vercel.app)
-[![Vercel Deployment](https://img.shields.io/badge/Deploy-Vercel-000000?style=for-the-badge&logo=vercel)](https://rawai-arshvermagit.vercel.app)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![Security Policy](https://img.shields.io/badge/Security-Policy-red.svg?style=for-the-badge)](SECURITY.md)
-[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge)](CONTRIBUTING.md)
-
-<br />
-
-| 🛡️ Security      | ⚡ Speed         | 📊 Precision      | 🌐 Reach          |
-| :--------------- | :--------------- | :---------------- | :---------------- |
-| **Undetectable** | **< 3s Latency** | **99.8% Passing** | **50+ Languages** |
-
-<br />
-
-[Explore Documentation](#📖-table-of-contents) · [View Roadmap](ROADMAP.md) · [Report Bug](https://github.com/ArshVermaGit/RAW-AI/issues)
-
-</div>
+> **Bypass AI detection with human-grade rewriting.**  
+> Transform your AI-generated content into authentic, undetectable, and engaging text.
 
 ---
 
-## 📖 Table of Contents
+## 🌟 Introduction
 
-- [✨ Key Features](#-key-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [📦 Architecture](#-architecture)
-- [🚀 Quick Start](#-quick-start)
-- [📂 Directory Structure](#-directory-structure)
-- [💎 Pricing Tiers](#-pricing-tiers)
-- [🤝 Governance & Community](#-governance--community)
-- [👨‍💻 Contact Manager](#-contact-manager)
+**RAW.AI** is a state-of-the-art platform designed to humanize AI-generated text. Leveraging advanced models (including our proprietary "Ultra Logic" engine), we rewrite content to bypass even the most sophisticated AI detectors while maintaining the original meaning and enhancing readability.
 
----
+Whether you're a student, professional, or content creator, RAW.AI ensures your voice remains yours—authentic, unique, and undetectable.
 
 ## ✨ Key Features
 
-RAW.AI is engineered for "Hyper-Premium" professional workflows, ensuring your content retains its soul while navigating the technical landscape of AI detection.
-
-- **🧠 Multi-Tier Humanization**: Lite, Pro, and Ultra modes tailored for specific linguistic nuances.
-- **🛡️ 100% Undetectable**: Rigorously tested against **GPTZero**, **Turnitin**, and **Originality.ai**.
-- **📊 Integrated AI Checker**: Sentence-by-sentence analysis of AI signatures.
-- **🌍 Global Lingua**: Native-level humanization in 50+ languages.
-- **🔐 Secure Auth**: Enterprise-grade onboarding via **Google OAuth** and **Supabase**.
-- **💳 Payment Hub**: Real-time credit management and **Razorpay** integration.
-
----
+- **🤖 Advanced Humanization**: Convert AI text to human-like quality with a 99.9% detection bypass rate.
+- **🛡️ Integrated AI Detector**: Analyze your text against top detectors (GPTZero, Turnitin, etc.) in real-time.
+- **✍️ Multiple Writing Modes**:
+  - **Standard**: Balanced humanization.
+  - **Academic**: Formal and structured for research.
+  - **Creative**: Expressive and varied for storytelling.
+  - **Business**: Professional and concise.
+- **💳 Secure Payments**: Seamless global transactions powered by **Razorpay**.
+- **🔒 Enterprise Security**: End-to-end encryption and secure data handling via **Supabase**.
+- **📱 Responsive Design**: A pixel-perfect "Hyper-Premium" UI that works on all devices.
 
 ## 🛠️ Tech Stack
 
-### Frontend Hub
+This project is built with the latest modern web technologies:
 
-- **Core**: React 18, Vite, TypeScript
-- **Styling**: Tailwind CSS, Framer Motion
-- **UI Architecture**: Shadcn UI, Lucide Icons
+- **Frontend**: [React](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **State Management**: [React Query](https://tanstack.com/query/latest)
+- **Backend/Auth**: [Supabase](https://supabase.com/)
+- **Payments**: [Razorpay](https://razorpay.com/)
 
-### Backend & Infrastructure
+## 🚀 Getting Started
 
-- **Platform**: Supabase (PostgreSQL, Realtime, Storage)
-- **Functions**: Deno Edge Functions (Linguistic Engines)
-- **Security**: Google Identity Platform
-- **Payments**: Razorpay Gateway
+Follow these instructions to get a copy of the project up and running on your local machine.
 
----
+### Prerequisites
 
-## 📦 Architecture
+- **Node.js**: v18.0.0 or higher
+- **npm**: v9.0.0 or higher
+- **Git**
 
-RAW.AI utilizes a distributed edge architecture for near-instant processing.
+### Installation
 
-```mermaid
-graph TD
-    User((User)) -->|Auth/Input| Front[React Frontend]
-    Front -->|Queries/Auth| Supa[Supabase Platform]
-    Supa -->|Database| Postgres[(PostgreSQL)]
-    Supa -->|Compute| Edge[Edge Functions]
-    Edge -->|Linguistic Analysis| NLP[AI Humanizer Engine]
-    Edge -->|Transaction| Razor[Razorpay API]
-```
+1.  **Clone the repository**
 
----
+    ```bash
+    git clone https://github.com/ArshVermaGit/RAW-AI.git
+    cd RAW-AI
+    ```
 
-## 🚀 Quick Start
+2.  **Install dependencies**
 
-### 1. Clone & Install
+    ```bash
+    npm install
+    ```
 
-```bash
-git clone https://github.com/ArshVermaGit/RAW-AI.git
-cd RAW-AI
-npm install
-```
+3.  **Set up environment variables**
+    Create a `.env` file in the root directory and add your keys (see `.env.example`):
 
-### 2. Environment Setup
+    ```env
+    VITE_SUPABASE_URL=your_supabase_url
+    VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_key
+    ```
 
-Create a `.env` in the root and add your Supabase credentials:
+4.  **Run the development server**
+    ```bash
+    npm run dev
+    ```
+    Open [http://localhost:5173](http://localhost:5173) (or the port shown in terminal) to view it in the browser.
 
-```env
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=your_anon_key
-```
-
-### 3. Launch
+## 📂 Project Structure
 
 ```bash
-npm run dev
+src/
+├── assets/         # Static assets (images, fonts)
+├── components/     # Reusable UI components
+│   ├── common/     # Generic components (Modals, Loaders)
+│   ├── layout/     # Header, Footer, Layout wrappers
+│   ├── ui/         # Shadcn UI primitives
+│   └── ...
+├── config/         # Site-wide configuration (site.ts)
+├── hooks/          # Custom React hooks
+├── lib/            # Utilities and helpers
+├── pages/          # Page components (routed)
+├── sections/       # Section-specific components (Home, Pricing, etc.)
+├── styles/         # Global styles
+├── App.tsx         # Main application component
+└── main.tsx        # Entry point
 ```
 
----
+## 🤝 Contributing
 
-## 📂 Directory Structure
+We love contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
 
-```text
-RAW-AI/
-├── .github/               # Issue & Pull Request Templates
-├── public/                # Static assets, Sitemap, robots.txt
-├── src/
-│   ├── components/        # UI System (Shadcn + Custom)
-│   ├── contexts/          # State Management (Auth, Usage)
-│   ├── hooks/             # Custom Hooks (useAuth, useUsage)
-│   ├── pages/             # Route Views (Index, Profile, FAQ)
-│   └── lib/               # Utility Tier
-├── supabase/              # Migrations & Edge Function logic
-└── ...                    # Build & Lint configs
-```
+- **Found a bug?** Open a [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md).
+- **Have a feature idea?** Submit a [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md).
+- **Code of Conduct**: Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) in all interactions.
 
----
+## 📜 Changelog
 
-## 💎 Pricing Tiers
+See what's new in our [CHANGELOG.md](CHANGELOG.md) or visit the [Changelog Page](/changelog) on the website.
 
-| Plan      | Word Limit | Processing Speed | Best For             |
-| :-------- | :--------- | :--------------- | :------------------- |
-| **Lite**  | 5,000 /mo  | Instant          | Daily Emails & Posts |
-| **Pro**   | 50,000 /mo | Professional     | Articles & Reports   |
-| **Ultra** | Unlimited  | Deep             | Academic & Legal     |
+## 📄 License
 
----
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
-## 🤝 Governance & Community
+## ❤️ Acknowledgements
 
-We adhere to strict professional and legal standards to maintain the highest quality of service and open-source collaboration.
-
-- **[LICENSE](LICENSE)**: Distributed under the **MIT License**.
-- **[ROADMAP](ROADMAP.md)**: Explore our vision for Q2-Q4 2026.
-- **[SECURITY](SECURITY.md)**: Responsible disclosure policy and vulnerability reporting.
-- **[CODE OF CONDUCT](CODE_OF_CONDUCT.md)**: Our commitment to inclusive and professional participation.
-- **[CONTRIBUTING](CONTRIBUTING.md)**: Guidelines for code, documentation, and feature contributions.
-
----
-
-## ☕ Support the Project
-
-If you find this tool helpful and want to support its development, consider buying me a coffee! Your support helps keep the project alive and free.
-
-<div align="center">
-    
-<a href="https://www.buymeacoffee.com/ArshVerma">
-  <img src="public/buy-me-a-coffee.png" width="200" />
-</a>
-
-</div>
-
-## 📱 Connect with Me
-
-I'd love to hear your feedback or discuss potential collaborations!
-
-<div align="center">
-
-[![GitHub](https://skillicons.dev/icons?i=github)](https://github.com/ArshVermaGit)
-[![LinkedIn](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/arshvermadev/)
-[![Twitter](https://skillicons.dev/icons?i=twitter)](https://x.com/TheArshVerma)
-[![Gmail](https://skillicons.dev/icons?i=gmail)](mailto:arshverma.dev@gmail.com)
-
-</div>
+- [Lucide React](https://lucide.dev/) for icons.
+- [Radix UI](https://www.radix-ui.com/) for accessible component primitives.
+- [Vite](https://vitejs.dev/) for the fast build tool.
 
 ---
 
 <p align="center">
-  Built with ❤️ by <strong>Arsh Verma</strong>
+  Built with ❤️ by <a href="https://github.com/ArshVermaGit">Arsh Verma</a>
 </p>
