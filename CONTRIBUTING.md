@@ -30,7 +30,7 @@ By participating in this project, you agree to abide by the same professional an
 1.  **Fork the Repository**: Click the "Fork" button at the top right of this page.
 2.  **Clone your Fork**:
     ```bash
-    git clone https://github.com/YOUR_USERNAME/RAW-AI.git
+    git clone https://github.com/ArshVermaGit/RAW-AI.git
     cd RAW-AI
     ```
 3.  **Install Dependencies**:
@@ -96,6 +96,13 @@ To maintain a "Hyper-Premium" quality codebase:
 - **Components**: Use functional components. Keep them small and focused. Extract logic to custom hooks where possible.
 - **Tailwind**: Use utility classes. Avoid `style={{}}` prop unless for dynamic values. Use the `cn()` utility for conditional classes.
 - **Imports**: Group imports: React/Third-party -> Local Components -> Hooks/Utils -> Types/Styles.
+
+### 🏗️ Project Structure & Configuration
+
+- **`src/config/site.ts`**: This is the single source of truth for site-wide constants, navigation links, feature details, and pricing plans. **Always update this file instead of hardcoding values.**
+- **`src/sections`**: Page-specific sections (e.g., `src/sections/home`) live here.
+- **`src/components/common`**: Reusable generic components.
+- **`ProtectedRoute`**: Use the `ProtectedRoute` wrapper for any pages requiring authentication.
 
 ### Linting & Formatting
 
