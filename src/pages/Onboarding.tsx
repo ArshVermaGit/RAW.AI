@@ -18,70 +18,21 @@ import { supabase } from '@/integrations/supabase/client';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
-interface OnboardingStep {
-  id: number;
-  icon: React.ReactNode;
-  title: string;
-  subtitle: string;
-  description: string;
-  features: string[];
-  gradient: string;
-}
 
-const steps: OnboardingStep[] = [
-  {
-    id: 1,
-    icon: <Wand2 className="w-8 h-8" />,
-    title: "Make it Human",
-    subtitle: "Turn AI writing into something real",
-    description: "We've designed our tools to take AI-generated text and give it a natural, human touch. Your message stays the same, it just sounds more like you.",
-    features: [
-      "Keep your original message",
-      "Add natural human flow",
-      "Keep your unique voice"
-    ],
-    gradient: "from-foreground/20 via-foreground/10 to-transparent"
-  },
-  {
-    id: 2,
-    icon: <Shield className="w-8 h-8" />,
-    title: "Written for People",
-    subtitle: "Write with total confidence",
-    description: "We help your content feel authentic so it can go wherever you need it to—without anyone questioning if it was made by a machine.",
-    features: [
-      "Designed to feel 100% human",
-      "Works for every detector",
-      "See your score as you go"
-    ],
-    gradient: "from-foreground/15 via-foreground/5 to-transparent"
-  },
-  {
-    id: 3,
-    icon: <Zap className="w-8 h-8" />,
-    title: "Quick and Easy",
-    subtitle: "Get it done in a flash",
-    description: "We know your time is valuable. Get your writing ready in seconds, so you can focus on the things that matter most.",
-    features: [
-      "Up to 10,000 words at once",
-      "Instant results",
-      "Easy to use"
-    ],
-    gradient: "from-foreground/10 via-foreground/5 to-transparent"
-  },
-  {
-    id: 4,
-    icon: <TrendingUp className="w-8 h-8" />,
-    title: "You're All Set!",
-    subtitle: "Welcome to RAW.AI",
-    description: "You're ready to start. Begin with our free plan and upgrade whenever you need more room to grow.",
-    features: [
-      "Start with 500 free words",
-      "Friendly support",
-      "Access to all tools"
-    ],
-    gradient: "from-foreground/20 via-foreground/10 to-transparent"
-  }
+
+import { siteConfig } from '@/config/site';
+
+const ICONS = [
+  <Wand2 className="w-8 h-8" />,
+  <Shield className="w-8 h-8" />,
+  <Zap className="w-8 h-8" />,
+  <TrendingUp className="w-8 h-8" />
 ];
+
+const steps = siteConfig.onboarding.steps.map((step, index) => ({
+  ...step,
+  icon: ICONS[index]
+}));
 
 const Onboarding = () => {
   const [currentStep, setCurrentStep] = useState(0);
