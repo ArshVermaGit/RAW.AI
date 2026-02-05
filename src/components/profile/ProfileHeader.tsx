@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { ArrowLeft } from 'lucide-react';
 
 export const ProfileHeader = () => {
@@ -43,7 +43,7 @@ export const ProfileHeader = () => {
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 200 }}
           >
-            <img src="/logo.png" alt="RAW.AI" className="w-8 h-8 object-contain invert dark:invert-0" />
+            <img src="/logo.png" alt="RAW.AI" className="w-8 h-8 object-contain rounded-lg" />
           </motion.div>
           <div>
             <motion.h1
