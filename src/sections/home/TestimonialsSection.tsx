@@ -2,13 +2,13 @@ import { Star } from 'lucide-react';
 
 export const TestimonialsSection = () => {
   const testimonials = [
-    { quote: "I always refine drafts to make them more engaging. This tool helped polish my words while keeping my style intact.", author: "Emily D.", role: "Content Writer" },
-    { quote: "In SEO, originality is crucial. This tool helped me produce materials that improved my website ranking significantly.", author: "Michael L.", role: "SEO Expert" },
-    { quote: "Running a blog requires lots of high-quality articles. This lets me quickly generate content that sounds natural.", author: "Lisa W.", role: "Blogger" },
+    { quote: "Yaar, I used to spend hours fixing my drafts. Now I just paste it here, and done—it sounds exactly like how I'd write it myself.", author: "Priya S.", role: "Content Writer" },
+    { quote: "My articles were getting flagged left and right. After using RAW, zero AI detection issues. My traffic is back up!", author: "Rahul M.", role: "SEO Specialist" },
+    { quote: "I run a tech blog and write almost daily. This tool is a lifesaver—saves me so much time and my posts sound natural.", author: "Ananya K.", role: "Tech Blogger" },
   ];
 
   return (
-    <section className="py-12 md:py-16 px-4 md:px-6 relative z-10 overflow-hidden bg-foreground text-background">
+    <section id="testimonials" className="py-12 md:py-16 px-4 md:px-6 relative z-10 overflow-hidden bg-foreground text-background">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-8 md:mb-12">
           <span className="text-xs font-medium uppercase tracking-wider opacity-60 mb-4 block">Testimonials</span>
