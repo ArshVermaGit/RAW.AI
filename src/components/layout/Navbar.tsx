@@ -4,10 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, User, LogOut, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { MagneticButton } from '@/components/MagneticButton';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { useModals } from '@/hooks/use-modals';
-import { cn } from '@/lib/utils'; // Assuming cn is available
+import { cn } from '@/lib/utils';
+import { siteConfig } from '@/config/site';
 
 export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -36,7 +37,7 @@ export const Navbar = () => {
             <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
               <div className="relative">
                 <div className="w-10 h-10 bg-foreground rounded-xl flex items-center justify-center overflow-hidden">
-                  <img src="/logo.png" alt="RAW.AI" className="w-8 h-8 object-contain invert dark:invert-0" />
+                  <img src="/logo.png" alt="RAW.AI" className="w-8 h-8 object-contain rounded-lg" />
                 </div>
                 <div className="absolute -inset-1 bg-foreground/20 rounded-xl blur-md -z-10" />
               </div>
@@ -45,10 +46,15 @@ export const Navbar = () => {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8">
-              <button onClick={() => scrollToSection('features')} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors underline-animated">Features</button>
-              <button onClick={() => scrollToSection('examples')} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors underline-animated">Examples</button>
-              <button onClick={() => scrollToSection('pricing')} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors underline-animated">Pricing</button>
-              <button onClick={() => navigate('/about')} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors underline-animated">About</button>
+              {siteConfig.nav.map((item) => (
+                <button 
+                  key={item.label}
+                  onClick={() => item.id ? scrollToSection(item.id) : navigate(item.href)} 
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors underline-animated"
+                >
+                  {item.label}
+                </button>
+              ))}
               <ThemeToggle />
               <div className="flex items-center gap-3">
                 {user ? (
@@ -84,20 +90,10 @@ export const Navbar = () => {
                     </Button>
                   </>
                 ) : (
-                  <>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="rounded-full"
-                      onClick={() => navigate('/auth')}
-                    >
-                      Login
-                    </Button>
-                    <MagneticButton size="default" onClick={() => navigate('/auth')}>
-                      Get Started Free
-                      <ArrowRight className="w-4 h-4" />
-                    </MagneticButton>
-                  </>
+                  <MagneticButton size="default" onClick={() => navigate('/auth')}>
+                    Get Started Free
+                    <ArrowRight className="w-4 h-4" />
+                  </MagneticButton>
                 )}
               </div>
             </div>
@@ -127,10 +123,22 @@ export const Navbar = () => {
                     <span className="text-sm font-medium">Theme</span>
                     <ThemeToggle />
                   </div>
-                  <button onClick={() => { setMobileMenuOpen(false); scrollToSection('features'); }} className="text-sm font-medium py-2 text-left">Features</button>
-                  <button onClick={() => { setMobileMenuOpen(false); scrollToSection('examples'); }} className="text-sm font-medium py-2 text-left">Examples</button>
-                  <button onClick={() => { setMobileMenuOpen(false); scrollToSection('pricing'); }} className="text-sm font-medium py-2 text-left">Pricing</button>
-                  <button onClick={() => navigate('/about')} className="text-sm font-medium py-2 text-left">About</button>
+                  {siteConfig.nav.map((item) => (
+                     <button 
+                        key={item.label}
+                        onClick={() => { 
+                          if (item.id) {
+                            setMobileMenuOpen(false); 
+                            scrollToSection(item.id); 
+                          } else {
+                            navigate(item.href);
+                          }
+                        }} 
+                        className="text-sm font-medium py-2 text-left"
+                      >
+                        {item.label}
+                      </button>
+                  ))}
                   {user ? (
                     <div className="flex flex-col gap-3 pt-2">
                       <button
@@ -164,9 +172,8 @@ export const Navbar = () => {
                       </Button>
                     </div>
                   ) : (
-                    <div className="flex gap-3 pt-2">
-                      <Button variant="ghost" size="sm" className="flex-1 rounded-full" onClick={() => navigate('/auth')}>Login</Button>
-                      <Button variant="default" size="sm" className="flex-1 rounded-full" onClick={() => navigate('/auth')}>Get Started</Button>
+                    <div className="pt-2">
+                      <Button variant="default" size="sm" className="w-full rounded-full" onClick={() => navigate('/auth')}>Get Started Free</Button>
                     </div>
                   )}
                 </div>
