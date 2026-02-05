@@ -3,21 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { TrustedByMarquee } from '@/components/TrustedByMarquee';
-import { Modal } from '@/components/Modal';
-import { AIDetector } from '@/components/AIDetector';
+import { Modal } from '@/components/common/Modal';
+import { AIDetector } from '@/components/features/AIDetector';
 import { useAuth } from '@/hooks/useAuth';
 import { useModals } from '@/hooks/use-modals';
 import { LucideIcon } from 'lucide-react';
 
 // Sections
-import { HeroSection } from '@/components/home/HeroSection';
-import { FeaturesSection } from '@/components/home/FeaturesSection';
-import { TestimonialsSection } from '@/components/home/TestimonialsSection';
-import { PricingSection } from '@/components/home/PricingSection';
-import { CTASection } from '@/components/home/CTASection';
-import { ExamplesSection } from '@/components/home/ExamplesSection';
-import { HowItWorksSection } from '@/components/home/HowItWorksSection';
-import { HumanizerTool } from '@/components/home/HumanizerTool';
+import { HeroSection } from '@/sections/home/HeroSection';
+import { FeaturesSection } from '@/sections/home/FeaturesSection';
+import { TestimonialsSection } from '@/sections/home/TestimonialsSection';
+import { PricingSection } from '@/sections/home/PricingSection';
+import { CTASection } from '@/sections/home/CTASection';
+import { ExamplesSection } from '@/sections/home/ExamplesSection';
+import { HowItWorksSection } from '@/sections/home/HowItWorksSection';
+import { HumanizerTool } from '@/sections/home/HumanizerTool';
 
 // Layout
 import { Navbar } from '@/components/layout/Navbar';
