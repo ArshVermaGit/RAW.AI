@@ -103,10 +103,6 @@ src/
 
 We love contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
 
-- **Found a bug?** Open a [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md).
-- **Have a feature idea?** Submit a [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md).
-- **Code of Conduct**: Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) in all interactions.
-
 ## 📜 Changelog
 
 See what's new in our [CHANGELOG.md](CHANGELOG.md) or visit the [Changelog Page](/changelog) on the website.
@@ -123,33 +119,6 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 ---
 
-## ☕ Support the Project
-
-If you find this tool helpful and want to support its development, consider buying me a coffee! Your support helps keep the project alive and free.
-
-<div align="center">
-    
-<a href="https://www.buymeacoffee.com/ArshVerma">
-  <img src="public/images/buy-me-a-coffee.png" width="200" />
-</a>
-
-</div>
-
-## 📱 Connect with Me
-
-I'd love to hear your feedback or discuss potential collaborations!
-
-<div align="center">
-
-[![GitHub](https://skillicons.dev/icons?i=github)](https://github.com/ArshVermaGit)
-[![LinkedIn](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/arshvermadev/)
-[![Twitter](https://skillicons.dev/icons?i=twitter)](https://x.com/TheArshVerma)
-[![Gmail](https://skillicons.dev/icons?i=gmail)](mailto:arshverma.dev@gmail.com)
-
-</div>
-
----
-
 <p align="center">
-  Built with ❤️ by <strong>Arsh Verma</strong>
+  Built with ❤️ by <a href="https://github.com/ArshVermaGit">Arsh Verma</a>
 </p>
