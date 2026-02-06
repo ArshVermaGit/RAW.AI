@@ -73,53 +73,78 @@ Follow these instructions to get a copy of the project up and running on your lo
     VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_key
     ```
 
-4.  **Run the development server**
-    ```bash
-    npm run dev
-    ```
-    Open [http://localhost:5173](http://localhost:5173) (or the port shown in terminal) to view it in the browser.
-
-## 📂 Project Structure
+### 3. Launch
 
 ```bash
-src/
-├── assets/         # Static assets (images, fonts)
-├── components/     # Reusable UI components
-│   ├── common/     # Generic components (Modals, Loaders)
-│   ├── layout/     # Header, Footer, Layout wrappers
-│   ├── ui/         # Shadcn UI primitives
-│   └── ...
-├── config/         # Site-wide configuration (site.ts)
-├── hooks/          # Custom React hooks
-├── lib/            # Utilities and helpers
-├── pages/          # Page components (routed)
-├── sections/       # Section-specific components (Home, Pricing, etc.)
-├── styles/         # Global styles
-├── App.tsx         # Main application component
-└── main.tsx        # Entry point
+npm run dev
 ```
 
-## 🤝 Contributing
+---
 
-We love contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
+## 📂 Directory Structure
 
-- **Found a bug?** Open a [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md).
-- **Have a feature idea?** Submit a [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md).
-- **Code of Conduct**: Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) in all interactions.
+```text
+RAW-AI/
+├── .github/               # Issue & Pull Request Templates
+├── public/                # Static assets, Sitemap, robots.txt
+├── src/
+│   ├── components/        # UI System (Shadcn + Custom)
+│   ├── contexts/          # State Management (Auth, Usage)
+│   ├── hooks/             # Custom Hooks (useAuth, useUsage)
+│   ├── pages/             # Route Views (Index, Profile, FAQ)
+│   └── lib/               # Utility Tier
+├── supabase/              # Migrations & Edge Function logic
+└── ...                    # Build & Lint configs
+```
 
-## 📜 Changelog
+---
 
-See what's new in our [CHANGELOG.md](CHANGELOG.md) or visit the [Changelog Page](/changelog) on the website.
+## 💎 Pricing Tiers
 
-## 📄 License
+| Plan      | Word Limit | Processing Speed | Best For             |
+| :-------- | :--------- | :--------------- | :------------------- |
+| **Lite**  | 5,000 /mo  | Instant          | Daily Emails & Posts |
+| **Pro**   | 50,000 /mo | Professional     | Articles & Reports   |
+| **Ultra** | Unlimited  | Deep             | Academic & Legal     |
 
-Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
+---
 
-## ❤️ Acknowledgements
+## 🤝 Governance & Community
 
-- [Lucide React](https://lucide.dev/) for icons.
-- [Radix UI](https://www.radix-ui.com/) for accessible component primitives.
-- [Vite](https://vitejs.dev/) for the fast build tool.
+We adhere to strict professional and legal standards to maintain the highest quality of service and open-source collaboration.
+
+- **[LICENSE](LICENSE)**: Distributed under the **MIT License**.
+- **[ROADMAP](ROADMAP.md)**: Explore our vision for Q2-Q4 2026.
+- **[SECURITY](SECURITY.md)**: Responsible disclosure policy and vulnerability reporting.
+- **[CODE OF CONDUCT](CODE_OF_CONDUCT.md)**: Our commitment to inclusive and professional participation.
+- **[CONTRIBUTING](CONTRIBUTING.md)**: Guidelines for code, documentation, and feature contributions.
+
+---
+
+## ☕ Support the Project
+
+If you find this tool helpful and want to support its development, consider buying me a coffee! Your support helps keep the project alive and free.
+
+<div align="center">
+    
+<a href="https://www.buymeacoffee.com/ArshVerma">
+  <img src="public/buy-me-a-coffee.png" width="200" />
+</a>
+
+</div>
+
+## 📱 Connect with Me
+
+I'd love to hear your feedback or discuss potential collaborations!
+
+<div align="center">
+
+[![GitHub](https://skillicons.dev/icons?i=github)](https://github.com/ArshVermaGit)
+[![LinkedIn](https://skillicons.dev/icons?i=linkedin)](https://www.linkedin.com/in/arshvermadev/)
+[![Twitter](https://skillicons.dev/icons?i=twitter)](https://x.com/TheArshVerma)
+[![Gmail](https://skillicons.dev/icons?i=gmail)](mailto:arshverma.dev@gmail.com)
+
+</div>
 
 ---
 
