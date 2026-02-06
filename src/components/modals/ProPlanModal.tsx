@@ -28,8 +28,8 @@ export const ProPlanModal = ({ isOpen, onClose, onSuccess }: ProPlanModalProps) 
   ];
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl w-full bg-[#050505]/95 border-white/5 p-0 overflow-hidden backdrop-blur-xl my-4">
-      <div className="relative p-6 md:p-12 overflow-y-auto max-h-[85vh] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10">
+    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl w-full bg-background/95 dark:bg-[#050505]/95 border-border/10 dark:border-white/5 p-0 overflow-hidden backdrop-blur-xl my-4">
+      <div className="relative p-6 md:p-12 overflow-y-auto max-h-[85vh] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-foreground/10 dark:scrollbar-thumb-white/10">
          {/* Animated Background Elements */}
          <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
           <motion.div 
@@ -38,7 +38,7 @@ export const ProPlanModal = ({ isOpen, onClose, onSuccess }: ProPlanModalProps) 
               opacity: [0.3, 0.5, 0.3],
             }}
             transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/20 rounded-full blur-[120px]" 
+            className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-[120px]" 
           />
         </div>
 
@@ -46,15 +46,15 @@ export const ProPlanModal = ({ isOpen, onClose, onSuccess }: ProPlanModalProps) 
             <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold uppercase tracking-[0.3em] text-blue-400 mb-4 md:mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold uppercase tracking-[0.3em] text-blue-500 dark:text-blue-400 mb-4 md:mb-6"
             >
             <Crown className="w-3 h-3" />
             Most Popular Choice
             </motion.div>
-            <h2 className="text-3xl md:text-6xl font-display font-black tracking-tighter mb-2 md:mb-4 text-white">
+            <h2 className="text-3xl md:text-6xl font-display font-black tracking-tighter mb-2 md:mb-4 text-foreground dark:text-white">
             Upgrade to <span className="text-blue-500">Pro</span>
             </h2>
-            <p className="text-white/40 text-base md:text-lg max-w-xl mx-auto">
+            <p className="text-muted-foreground dark:text-white/40 text-base md:text-lg max-w-xl mx-auto">
             Perfect for serious writers and content creators who need more power.
             </p>
         </div>
@@ -62,27 +62,27 @@ export const ProPlanModal = ({ isOpen, onClose, onSuccess }: ProPlanModalProps) 
         <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-6">
                 <div className="flex items-baseline gap-2 justify-center md:justify-start">
-                    <span className="text-5xl md:text-6xl font-display font-black text-white tracking-tighter">$5</span>
+                    <span className="text-5xl md:text-6xl font-display font-black text-foreground dark:text-white tracking-tighter">$5</span>
                     <div className="flex flex-col text-left">
-                        <span className="text-lg line-through text-white/20 font-bold decoration-blue-500/40 leading-none mb-1">$10</span>
-                        <span className="text-sm font-black text-white/40 uppercase tracking-widest">/month</span>
+                        <span className="text-lg line-through text-muted-foreground/50 dark:text-white/20 font-bold decoration-blue-500/40 leading-none mb-1">$10</span>
+                        <span className="text-sm font-black text-muted-foreground dark:text-white/40 uppercase tracking-widest">/month</span>
                     </div>
                 </div>
                 <ul className="space-y-3 md:space-y-4">
                     {features.map((feature, i) => (
                         <li key={i} className="flex items-center gap-4 text-sm">
-                             <div className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+                             <div className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
                                 <Check className="w-3.5 h-3.5" strokeWidth={3} />
                              </div>
-                             <span className="text-white/80 font-medium">{feature}</span>
+                             <span className="text-foreground/80 dark:text-white/80 font-medium">{feature}</span>
                         </li>
                     ))}
                 </ul>
             </div>
             
-            <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center">
-                <h3 className="text-xl font-bold text-white mb-2">Ready to start?</h3>
-                <p className="text-white/40 text-sm mb-6 md:mb-8">Get instant access to all Pro features.</p>
+            <div className="bg-secondary/50 dark:bg-white/5 border border-border/50 dark:border-white/10 rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center">
+                <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">Ready to start?</h3>
+                <p className="text-muted-foreground dark:text-white/40 text-sm mb-6 md:mb-8">Get instant access to all Pro features.</p>
                 
                 <MagneticButton
                   size="xl"
@@ -101,7 +101,7 @@ export const ProPlanModal = ({ isOpen, onClose, onSuccess }: ProPlanModalProps) 
                   )}
                 </MagneticButton>
                  
-                <div className="mt-6 flex items-center gap-2 text-white/20 font-bold uppercase tracking-[0.1em] text-[10px]">
+                <div className="mt-6 flex items-center gap-2 text-muted-foreground/40 dark:text-white/20 font-bold uppercase tracking-[0.1em] text-[10px]">
                     <Shield className="w-3 h-3" />
                     Secure Payment
                 </div>
