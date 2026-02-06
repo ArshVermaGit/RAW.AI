@@ -103,10 +103,6 @@ src/
 
 We love contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started.
 
-- **Found a bug?** Open a [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md).
-- **Have a feature idea?** Submit a [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md).
-- **Code of Conduct**: Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) in all interactions.
-
 ## 📜 Changelog
 
 See what's new in our [CHANGELOG.md](CHANGELOG.md) or visit the [Changelog Page](/changelog) on the website.
