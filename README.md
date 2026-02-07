@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="public/logo.png" alt="RAW.AI Logo" width="120" height="120" />
+</div>
+
 # RAW.AI 🚀
 
 ![License](https://img.shields.io/github/license/ArshVermaGit/RAW-AI?style=flat-square)
