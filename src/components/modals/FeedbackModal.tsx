@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { CheckCircle2, XCircle, Sparkles, PartyPopper, ArrowRight, Zap, LogOut, Trash2, Rocket, Heart, Shield, Loader2 } from 'lucide-react';
 import { Modal } from '@/components/common/Modal';
-import { MagneticButton } from '@/components/MagneticButton';
+import { MagneticButton } from '@/components/common';
 import { cn } from '@/lib/utils';
 import { ModalType } from '@/hooks/use-modals';
 

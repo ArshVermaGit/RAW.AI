@@ -1,4 +1,5 @@
 import { ClipboardPaste, Wand2, Copy } from 'lucide-react';
+import { StepCard } from '@/components/home/StepCard';
 
 export const HowItWorksSection = () => {
   return (

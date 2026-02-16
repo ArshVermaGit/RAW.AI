@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, User, LogOut, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { MagneticButton } from '@/components/MagneticButton';
+import { MagneticButton, NavLink } from '@/components/common';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { useModals } from '@/hooks/use-modals';

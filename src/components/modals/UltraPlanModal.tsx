@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Check, Sparkles, Shield, Loader2 } from 'lucide-react';
 import { Modal } from '@/components/common/Modal';
-import { MagneticButton } from '@/components/MagneticButton';
+import { MagneticButton } from '@/components/common';
 import { cn } from '@/lib/utils';
 import { useRazorpay } from '@/hooks/useRazorpay';
 import { useAuth } from '@/hooks/useAuth';
@@ -72,7 +72,7 @@ export const UltraPlanModal = ({ isOpen, onClose, onSuccess }: UltraPlanModalPro
                     {features.map((feature, i) => (
                         <li key={i} className="flex items-center gap-4 text-sm">
                              <div className="w-6 h-6 rounded-full bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
-                                <Check className="w-3.5 h-3.5" strokeWidth={3} />
+                                 <Check className="w-3.5 h-3.5" strokeWidth={3} />
                              </div>
                              <span className="text-foreground/80 dark:text-white/80 font-medium">{feature}</span>
                         </li>

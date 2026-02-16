@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { TrustedByMarquee } from '@/components/TrustedByMarquee';
+import { TrustedByMarquee } from '@/components/home/TrustedByMarquee';
 import { Modal } from '@/components/common/Modal';
 import { AIDetector } from '@/components/features/AIDetector';
 import { useAuth } from '@/hooks/useAuth';

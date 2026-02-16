@@ -1,5 +1,5 @@
 import { Crown, Check } from 'lucide-react';
-import { MagneticButton } from '@/components/MagneticButton';
+import { MagneticButton } from '@/components/common';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';

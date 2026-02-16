@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Shield, AlertTriangle, CheckCircle2, Copy, Check, Trash2, FileText, ChevronDown, BarChart3, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { MagneticButton } from '@/components/MagneticButton';
+import { MagneticButton } from '@/components/common';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';

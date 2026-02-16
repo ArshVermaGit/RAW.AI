@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { MagneticButton } from '@/components/MagneticButton';
+import { MagneticButton } from '@/components/common';
 
 export const CTASection = () => {
   return (

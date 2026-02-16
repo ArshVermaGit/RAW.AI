@@ -3,3 +3,5 @@ export * from './Modal';
 export * from './ModalContainer';
 export { default as ScrollToTop } from './ScrollToTop';
 export * from './ThemeToggle';
+export * from './MagneticButton';
+export * from './NavLink';

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Loader2, Shield, Crown } from 'lucide-react';
 import { Modal } from '@/components/common/Modal';
-import { MagneticButton } from '@/components/MagneticButton';
+import { MagneticButton } from '@/components/common';
 import { useAuth } from '@/hooks/useAuth';
 import { useModals } from '@/hooks/use-modals';
 import { cn } from '@/lib/utils';

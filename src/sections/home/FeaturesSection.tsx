@@ -1,4 +1,4 @@
-import { InteractiveCard } from '@/components/InteractiveCard';
+import { InteractiveCard } from '@/components/home/InteractiveCard';
 import { featuresList, Feature } from '@/data/features';
 
 interface FeaturesSectionProps {

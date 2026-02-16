@@ -1,4 +1,5 @@
-import { ScoreDisplay } from '@/components/ScoreDisplay';
+import { ScoreDisplay } from '@/components/features/ScoreDisplay';
+import { ExampleCard } from '@/components/home/ExampleCard';
 
 export const ExamplesSection = () => {
   return (

@@ -1,6 +1,6 @@
 import { ArrowLeft, Cpu, UserCheck, ShieldCheck, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { MagneticButton } from '@/components/MagneticButton';
+import { MagneticButton } from '@/components/common';
 
 const HowItWorks = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { ArrowLeft, Mail, Github, Linkedin, Twitter, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
-import { MagneticButton } from '@/components/MagneticButton';
+import { MagneticButton } from '@/components/common';
 import arshAvatar from '@/assets/arsh-avatar.jpg';
 import { motion } from 'framer-motion';
 

@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { DynamicHeroText } from '@/components/DynamicHeroText';
-import { MagneticButton } from '@/components/MagneticButton';
-import { HeroOrbitalElements } from '@/components/HeroOrbitalElements';
+import { DynamicHeroText } from '@/components/home/DynamicHeroText';
+import { MagneticButton } from '@/components/common';
+import { HeroOrbitalElements } from '@/components/home/HeroOrbitalElements';
 import { ArrowRight, PlayCircle, Mouse } from 'lucide-react';
 
 export const HeroSection = () => {

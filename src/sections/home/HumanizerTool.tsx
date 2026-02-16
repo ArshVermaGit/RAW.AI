@@ -8,9 +8,9 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { MagneticButton } from '@/components/MagneticButton';
-import { ScoreDisplay } from '@/components/ScoreDisplay';
-import { UsageIndicator } from '@/components/UsageIndicator';
+import { MagneticButton } from '@/components/common';
+import { UsageIndicator } from '@/components/features/UsageIndicator';
+import { ScoreDisplay } from '@/components/features/ScoreDisplay';
 import { ModelSelector, AIModel } from '@/components/features/ModelSelector';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';

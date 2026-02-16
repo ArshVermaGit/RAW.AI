@@ -1,4 +1,5 @@
 import { Star } from 'lucide-react';
+import { Testimonial } from '@/components/home/Testimonial';
 
 export const TestimonialsSection = () => {
   const testimonials = [

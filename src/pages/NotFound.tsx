@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { ArrowLeft, Ghost } from "lucide-react";
-import { MagneticButton } from "@/components/MagneticButton";
+import { MagneticButton } from '@/components/common';
 
 const NotFound = () => {
   const location = useLocation();

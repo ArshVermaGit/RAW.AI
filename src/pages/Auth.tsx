@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Loader2, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { FloatingParticles } from '@/components/FloatingParticles';
+import { FloatingParticles } from '@/components/home/FloatingParticles';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';

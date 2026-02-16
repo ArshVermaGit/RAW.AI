@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
-import { FloatingParticles } from '@/components/FloatingParticles';
+import { FloatingParticles } from '@/components/home/FloatingParticles';
 import { useAuth } from '@/hooks/useAuth';
 
 // Sub Components
